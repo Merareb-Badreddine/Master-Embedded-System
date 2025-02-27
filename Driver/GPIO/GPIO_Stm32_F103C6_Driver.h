@@ -2,7 +2,7 @@
  * GPIO_Stm32_F103C6_Driver.h
  *
  *  Created on:
- *      Author: User
+ *      Author: Merareb Badreddine
  */
 
 #ifndef INC_GPIO_STM32_F103C6_DRIVER_H_
