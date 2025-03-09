@@ -19,16 +19,16 @@ typedef unsigned int unit32_t;
 //-----------------------------
 #define FLASH_Memory_BASE            					0x08000000UL
 #define System_Memory_BASE            					0x1FFFF000UL
-#define SRAM_BASE            							0x20000000UL
+#define SRAM_BASE            						0x20000000UL
 
 #define Peripherals_BASE            					0x40000000UL
 
-#define Cortex_M3_Internal_Peripherals_BASE            	0xE0000000UL
+#define Cortex_M3_Internal_Peripherals_BASE            	                0xE0000000UL
 //NVIC register map
 
 
 #define NVIC_Base					(0xE000E100UL)
-#define NVIC_ISER0					*(volatile uint32_t *) (NVIC_Base + 0x0 )
+#define NVIC_ISER0					*(volatile uint32_t *)(NVIC_Base + 0x0 )
 #define NVIC_ISER1					*(volatile uint32_t *)(NVIC_Base + 0x4)
 #define NVIC_ISER2					*(volatile uint32_t *)(NVIC_Base + 0x8)
 #define NVIC_ICER0					*(volatile uint32_t *)(NVIC_Base + 0x80)
@@ -136,13 +136,13 @@ typedef struct
 
 typedef struct
 {
-	 vuint32_t SR;				/* Status register, 						Address offset: 0x00 */
-	 vuint32_t DR;				/* Data register , 							Address offset: 0x04 */
-	 vuint32_t BRR;				/* Baud rate register, 						Address offset: 0x08 */
-	 vuint32_t CR1;				/* Control register 1, 						Address offset: 0x0C */
-	 vuint32_t CR2;				/* Control register 2, 						Address offset: 0x10 */
-	 vuint32_t CR3;				/* Control register 3, 						Address offset: 0x14 */
-	 vuint32_t GTPR;			/* Guard time and pre-scaler register, 		Address offset: 0x18 */
+	 uint32_t SR;				/* Status register, 						Address offset: 0x00 */
+	 uint32_t DR;				/* Data register , 							Address offset: 0x04 */
+	 uint32_t BRR;				/* Baud rate register, 						Address offset: 0x08 */
+	 uint32_t CR1;				/* Control register 1, 						Address offset: 0x0C */
+	 uint32_t CR2;				/* Control register 2, 						Address offset: 0x10 */
+	 uint32_t CR3;				/* Control register 3, 						Address offset: 0x14 */
+	 uint32_t GTPR;			/* Guard time and pre-scaler register, 		Address offset: 0x18 */
 }USART_TypeDef;
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
