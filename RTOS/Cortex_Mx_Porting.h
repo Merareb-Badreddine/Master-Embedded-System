@@ -11,8 +11,8 @@ extern int _eheap  ;
 #define MainStackSize 	4056
 
 
-#define OS_SET_PSP(add)              __asm volatile("mov r0,%0 \n\t msr PSP,r0" : : "r" (add) )
-#define OS_GET_PSP(add)              __asm volatile("mrs r0,PSP \n\t mov %0,r0"   : "=r" (add) )
+#define OS_SET_PSP(add)              __asm volatile("mov r0,%0 \n\t msr PSP,r0" : : "r" (add))
+#define OS_GET_PSP(add)              __asm volatile("mrs r0,PSP \n\t mov %0,r0"   : "=r" (add))
 
 #define OS_SWITCH_SP_to_PSP          __asm volatile("mrs r0, CONTROL \n\t mov r1,#0x02 \n\t orr r0,r0,r1 \n\t msr CONTROL,r0")
 #define OS_SWITCH_SP_to_MSP          __asm volatile("mrs r0, CONTROL \n\t mov r1,#0x05 \n\t and r0,r0,r1 \n\t msr CONTROL,r0")
