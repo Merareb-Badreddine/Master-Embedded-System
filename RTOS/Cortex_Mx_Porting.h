@@ -1,6 +1,6 @@
 /*
+Stm32_F103X6.h
 Eng Merareb.Badreddine
-
 */
 
 #ifndef INC_CORTEXMx_OS_PORTING_H_
@@ -20,8 +20,8 @@ extern int _eheap  ;
 
 //clear Bit 0 CONTROL register
 #define OS_SWITCH_to_privileged   		__asm(" mrs r3, CONTROL  \n\t" \
-										" lsr r3,r3,#0x1   \n\t"       \
-										" lsl r3,r3,#0x1   \n\t"	   \
+										" lsr r3,r3,#0x1   \n\t" \
+										" lsl r3,r3,#0x1   \n\t" \
 										" msr CONTROL, r3");
 
 //set Bit 0 CONTROL register
