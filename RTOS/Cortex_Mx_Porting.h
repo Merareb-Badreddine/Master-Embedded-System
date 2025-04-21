@@ -26,8 +26,8 @@ extern int _eheap  ;
 
 //set Bit 0 CONTROL register
 #define OS_SWITCH_to_unprivileged		__asm(" mrs r3, CONTROL  \n\t" \
-											  " orr r3,r3,#0x1   \n\t" \
-											  " msr CONTROL, r3 ");
+									       " orr r3,r3,#0x1   \n\t" \
+									       " msr CONTROL, r3 ");
 
 void trigger_OS_PendSV();
 void Start_Ticker();
