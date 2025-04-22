@@ -1,4 +1,4 @@
-/**
+/*
  Stm32_F103X6.h
 Eng Merareb.Badreddine
  */
@@ -6,6 +6,7 @@ Eng Merareb.Badreddine
 #include "Cortex_MX_porting.h"
 
 unsigned char SysTickLED ;
+
 void HardFault_Handler (void)
 {
 	while(1) ;
@@ -27,9 +28,9 @@ void	UsageFault_Handler(void)
 __attribute ((naked)) void SVC_Handler ()
 {
 	//	SWITCH_CPU_AccessLevel (privileged);
-	__asm ("tst lr, #4 \n\t"
+	__asm (         "tst lr, #4 \n\t"
 			"ITE EQ \n\t" //To execute Thumb instructions conditionally, you can either use an IT instruction, or a conditional branch instruction.
-			"mrseq r0,MSP \n\t "
+			"mrseq r0,MSP \n\t "   
 			"mrsne r0,PSP \n\t"
 			"B OS_SVC");
 }
