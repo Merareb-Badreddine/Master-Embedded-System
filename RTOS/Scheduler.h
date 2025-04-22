@@ -1,12 +1,12 @@
 /*
-
+Stm32_F103X6.h
 Eng Merareb.Badreddine
- */
+*/
 
 #ifndef INC_SCHEDULER_H_
 #define INC_SCHEDULER_H_
 
-#include "CortexMX_OS_porting.h"
+#include "Cortex_MX_porting.h"
 
 typedef enum{
 	NoError,
@@ -21,11 +21,11 @@ typedef struct{
 	unsigned int Stack_Size;
 	unsigned char priority;
 	void (*p_TaskEntry)(void); //pointer to Tack C Function
-	unsigned char AutoStart ;
-	unsigned int _S_PSP_Task ;//Not Entered by the user
-	unsigned int _E_PSP_Task ;//Not Entered by the user
-	unsigned int* Current_PSP ;//Not Entered by the user
-	char TaskName[30] ;
+	unsigned char AutoStart;
+	unsigned int _S_PSP_Task;//Not Entered by the user
+	unsigned int _E_PSP_Task;//Not Entered by the user
+	unsigned int* Current_PSP;//Not Entered by the user
+	char TaskName[30];
 	enum{
 		Suspend,
 		Running,
@@ -37,16 +37,16 @@ struct{
 			Enable,
 			Disable
 		}Blocking;
-		unsigned int Ticks_Count ;
+		unsigned int Ticks_Count;
 	}TimingWaiting;
 }Task_ref;
 
 typedef struct {
 	unsigned char* Ppayload;
-	unsigned int   PayloadSize ;
-	Task_ref* 	   CurrentTUser ;
-	Task_ref* 	   NextTUser ;
-	char 		   MutexName[30]  ;
+	unsigned int   PayloadSize;
+	Task_ref*      CurrentTUser;
+	Task_ref*      NextTUser;
+	char 	       MutexName[30];
 } Mutex_ref;
 
 #define element_type Task_ref*
