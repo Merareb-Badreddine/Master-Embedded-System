@@ -2,10 +2,9 @@
 /*
  * stm32f103x8_gpio_driver.h
  *
- *  Created on: Apr 28, 2021
- *      Author: Keroles Shenouda
- *      Mastering Embedded System Online Diploma
- *      www.learn-in-depth.com
+ *  Created on: 
+ *      Author: Merareb Badreddine 
+ *     
  */
 
 #include "GPIO_Stm32_F103C6_Driver.h"
