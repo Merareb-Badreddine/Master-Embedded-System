@@ -5,8 +5,8 @@
  *      Author: Merareb Badreddine
  */
 
-#ifndef INC_STM32_F103X6_H_
-#define INC_STM32_F103X6_H_
+#ifndef STM32_F103X6_Mcu_Device_Header
+#define STM32_F103X6_Mcu_Device_Header
 
 //-----------------------------
 //Includes
@@ -298,4 +298,4 @@ typedef struct
 /********************************************************/
 
 
-#endif /* INC_STM32_F103X6_H_ */
+#endif /* STM32_F103X6_H_ */
