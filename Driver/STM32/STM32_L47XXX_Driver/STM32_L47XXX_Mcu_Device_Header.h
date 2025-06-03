@@ -6,7 +6,8 @@
 * Author : Merareb Badreddine
 */
 
-
+#ifndef STM32_L47bRGTb0_Device_Header_H
+#define STM32_L47bRGTb0_Device_Header_H
 //-----------------------------
 //Includes 
 //-----------------------------
@@ -21,13 +22,41 @@
 
 #define SRAM1_BASE            (0x20000000UL) 
 
-#define SRAM2_BASE            (0x10000000UL) 
+#define SRAM2_BASE            (0x20040000UL)
 
 #define Peripherals_BASE      (0x40000000UL) 
 
 
 #define APB2PERIPH_BASE       (Peripherals_BASE + 0x00010000UL)
 
+#define Cortex_M4_Internal_Peripherals_BASE   (0xE000E000)
+
+
+//-----------------------------------
+//  NVIC register map
+//-----------------------------------
+#define NVIC_BASE    (0xE000E100)
+
+// Interrupt Set-Enable Registers
+/* ==============  Interrupt Set‑Enable Registers  ============== */
+#define NVIC_ISER0      (*(volatile uint32_t *)(NVIC_BASE + 0x000))
+#define NVIC_ISER1      (*(volatile uint32_t *)(NVIC_BASE + 0x004))
+#define NVIC_ISER2      (*(volatile uint32_t *)(NVIC_BASE + 0x008))
+#define NVIC_ISER3      (*(volatile uint32_t *)(NVIC_BASE + 0x00C))
+#define NVIC_ISER4      (*(volatile uint32_t *)(NVIC_BASE + 0x010))
+#define NVIC_ISER5      (*(volatile uint32_t *)(NVIC_BASE + 0x014))
+#define NVIC_ISER6      (*(volatile uint32_t *)(NVIC_BASE + 0x018))
+#define NVIC_ISER7      (*(volatile uint32_t *)(NVIC_BASE + 0x01C))
+
+/* ==============  Interrupt Clear‑Enable Registers  ============== */
+#define NVIC_ICER0      (*(volatile uint32_t *)(NVIC_BASE + 0x080))
+#define NVIC_ICER1      (*(volatile uint32_t *)(NVIC_BASE + 0x084))
+#define NVIC_ICER2      (*(volatile uint32_t *)(NVIC_BASE + 0x088))
+#define NVIC_ICER3      (*(volatile uint32_t *)(NVIC_BASE + 0x08C))
+#define NVIC_ICER4      (*(volatile uint32_t *)(NVIC_BASE + 0x090))
+#define NVIC_ICER5      (*(volatile uint32_t *)(NVIC_BASE + 0x094))
+#define NVIC_ICER6      (*(volatile uint32_t *)(NVIC_BASE + 0x098))
+#define NVIC_ICER7      (*(volatile uint32_t *)(NVIC_BASE + 0x09C))
 
 //-----------------------------------
 //Base addresses for AHB1 Peripherals
@@ -72,7 +101,6 @@
 //-----------------------------------
 
 #define APB1PERIPH_BASE        Peripherals_BASE
-
 
 //--------------------------------------
 // Peripheral Register : RCC
@@ -206,15 +234,15 @@ typedef struct
 
 #define GPIOA     ((GPIO_TypeDef * )GPIOA_BASE)
 
-#define GPIOB     ((GPIO_TypeDef * )GPIOA_BASE)
+#define GPIOB     ((GPIO_TypeDef * )GPIOB_BASE)
 
-#define GPIOC     ((GPIO_TypeDef * )GPIOA_BASE)
+#define GPIOC     ((GPIO_TypeDef * )GPIOC_BASE)
 
-#define GPIOD     ((GPIO_TypeDef * )GPIOA_BASE)
+#define GPIOD     ((GPIO_TypeDef * )GPIOD_BASE)
 
-#define GPIOE     ((GPIO_TypeDef * )GPIOA_BASE)
+#define GPIOE     ((GPIO_TypeDef * )GPIOE_BASE)
 
-#define GPIOH     ((GPIO_TypeDef * )GPIOA_BASE)
+#define GPIOH     ((GPIO_TypeDef * )GPIOH_BASE)
 
 #define RCC       ((RCC_TypeDef * ) RCC_BASE)
 
@@ -231,8 +259,58 @@ typedef struct
 #define RCC_GPIOE_CLK_EN()       (RCC->AHB2ENR |= (1<< 4))
 #define RCC_GPIOH_CLK_EN()       (RCC->AHB2ENR |= (1<< 7))
 
+//-----------------------------------------------
+//IVT
+//-----------------------------------------------
+//EXTI
+
+#define EXTI0_IRQ =      6
+#define EXTI1_IRQ =      7
+#define EXTI2_IRQ =      8
+#define EXTI3_IRQ =      9
+#define EXTI4_IRQ =      10
+#define EXTI5_IRQ =      23
+#define EXTI6_IRQ =      23
+#define EXTI7_IRQ =      23
+#define EXTI8_IRQ =      23
+#define EXTI9_IRQ =      23
+#define EXTI10_IRQ =     40
+#define EXTI11_IRQ =     40
+#define EXTI12_IRQ =     40
+#define EXTI13_IRQ =     40
+#define EXTI14_IRQ =     40
+#define EXTI15_IRQ =     40
+
+
+//-----------------------------------------------
+//NVIC IRQ Enable/Disable
+//-----------------------------------------------
+
+//NVIC IRQ Enable
+
+#define NVIC_IRQ6_EXTI0_Enable()			(NVIC_ISER0 |= 1<<6)				// EXTI0 ---> PIN6 in NVIC
+#define NVIC_IRQ7_EXTI1_Enable()			(NVIC_ISER0 |= 1<<7)				// EXTI1 ---> PIN7 in NVIC
+#define NVIC_IRQ8_EXTI2_Enable()			(NVIC_ISER0 |= 1<<8)				// EXTI2 ---> PIN8 in NVIC
+#define NVIC_IRQ9_EXTI3_Enable()			(NVIC_ISER0 |= 1<<9)				// EXTI3 ---> PIN9 in NVIC
+#define NVIC_IRQ10_EXTI4_Enable()			(NVIC_ISER0 |= 1<<10)				// EXTI4 ---> PIN10 in NVIC
+#define NVIC_IRQ23_EXTI5_9_Enable()			(NVIC_ISER0 |= 1<<23)				// EXTI5, EXTI6, EXTI7, EXTI8, EXTI9 ---> PIN23 in NVIC
+
+// 40 - 32 = 8
+#define NVIC_IRQ40_EXTI10_15_Enable()		(NVIC_ISER1 |= 1<<8)				// EXTI10, EXTI11, EXTI12, EXTI13, EXTI14, EXTI15
+
+//NVIC IRQ Disable
+#define NVIC_IRQ6_EXTI0_Disable()			(NVIC_ICER0 |= 1<<6)				// EXTI0 ---> PIN6 in NVIC
+#define NVIC_IRQ7_EXTI1_Disable()			(NVIC_ICER0 |= 1<<7)				// EXTI1 ---> PIN7 in NVIC
+#define NVIC_IRQ8_EXTI2_Disable()			(NVIC_ICER0 |= 1<<8)				// EXTI2 ---> PIN8 in NVIC
+#define NVIC_IRQ9_EXTI3_Disable()			(NVIC_ICER0 |= 1<<9)				// EXTI3 ---> PIN9 in NVIC
+#define NVIC_IRQ10_EXTI4_Disable()			(NVIC_ICER0 |= 1<<10)				// EXTI4 ---> PIN10 in NVIC
+#define NVIC_IRQ23_EXTI5_9_Disable()			(NVIC_ICER0 |= 1<<23)				// EXTI5, EXTI6, EXTI7, EXTI8, EXTI9 ---> PIN23 in NVIC
+
+// 40 - 32 = 8
+#define NVIC_IRQ40_EXTI10_15_Disable()		(NVIC_ICER1 |= 1<<8)				// EXTI10, EXTI11, EXTI12, EXTI13, EXTI14, EXTI15
+																			//  ---> PIN40 in NVIC
+																			//  ---> PIN40 in NVIC
 /*******************  Bit definition for Peripheral register  ******************/
 
 
-
-
+#endif /* STM32_L47bRGTb0_Device_Header_H */
