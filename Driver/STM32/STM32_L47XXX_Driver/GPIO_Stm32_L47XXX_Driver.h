@@ -1,306 +1,195 @@
 /*
- * GPIO_STM32_L47bRGTb0_Driver.c
+ * GPIO_STM32_L47bRGTb0_Driver.h
  *
  *  Created on:
  *      Author: badreddine.merareb
  */
-#include "GPIO_STM32_L47bRGTb0_Driver.h"
+
+#ifndef GPIO_STM32_L47BRGTB0_DRIVER_H_
+#define GPIO_STM32_L47BRGTB0_DRIVER_H_
+
+#include <STM32_L47bRGTb0_Device_Header.h>
+
+typedef struct
+{
+    uint16_t GPIO_pinNumber; //@ref GPIO_PINS_define
+
+    uint8_t  GPIO_MODE; //@ref GPIO_MODE_define
+
+    uint8_t  GPIO_OutputType; //@ref GPIO_output_type
+
+    uint8_t  GPIO_Output_Speed; //@ref GPIO_SPEED_define
+
+    uint8_t  GPIO_inputType;  //@ref GPIO_pull-up/pull-down
+
+    uint8_t  GPIO_analog;  //@ref GPIO_Analog_define
+
+    uint8_t  Alternate_function; //@ref GPIO_Alternate_function
+
+} GPIO_PINConfig_t;
+
+/*	@ref GPIO_MODE_define
+
+00: Input mode
+01: General purpose output mode
+10: Alternate function mode
+11: Analog mode (reset state)
+*/
+
+#define GPIO_Input_mode          0x00000000u   //
+
+#define GPIO_output_mode         0x00000001u   //
+
+#define Alternate_function_mode  0x00000002u   //
+
+#define GPIO_Analog_mode         0x00000003u   //(reset state)
+
+
+
+/*	@ref GPIO_output_type
+	0: Output push-pull (reset state)
+    1: Output open-drain
+ */
+#define GPIO_Output_push_pull     0x00000000u   //(reset state)
+
+#define GPIO_Output_open_drain    0x00000001u   //
+
+
+/*	@ref GPIO_ pull-up/pull-down
+	00: No pull-up, pull-down
+    01: Pull-up
+    10: Pull-down
+    11: Reserved
+ */
+
+#define GPIO_Input_No_pull_up_pull_down     0x00000000u   //
+
+#define GPIO_Input_Pull_up                  0x00000001u   //
+
+#define GPIO_Input_Pull_down                0x00000002u   //
+
+
+/*	@ref GPIO_SPEED_define
+		01: Output mode, max speed 10 MHz.
+		10: Output mode, max speed 2 MHz.
+		11: Output mode, max speed 50 MHz.
+ */
+
+
+#define GPIO_speed_2_MHz          0x00000000u   // Low speed
+
+#define GPIO_speed_10_MHz         0x00000001u   //  Medium speed
+
+#define GPIO_speed_50_MHz         0x00000002u   //  High speed
+
+#define GPIO_speed_80_MHz         0x00000003u   //  Very high speed
+
+
+
+/*	@ref GPIO_Analog_define
+		0: Disconnect analog switch to the ADC input (reset state)
+        1: Connect analog switch to the ADC input
+ */
+
+#define GPIO_Disconnect_analog     0x00000000u   //
+
+#define GPIO_Connect_analog        0x00000001u   //
+
+
+//@ref GPIO_Alternate_function
+
 /*
- * =======================================================================================
- * 							Generic Macros
- * =======================================================================================
+0000: AF0
+0001: AF1
+0010: AF2
+0011: AF3
+0100: AF4
+0101: AF5
+0110: AF6
+0111: AF7
+1000: AF8
+1001: AF9
+1010: AF10
+1011: AF11
+1100: AF12
+1101: AF13
+1110: AF14
+1111: AF15
+ */
+#define GPIO_Alternate_function0     0x00000000u
+#define GPIO_Alternate_function1     0x00000001u
+#define GPIO_Alternate_function2     0x00000002u
+#define GPIO_Alternate_function3     0x00000003u
+#define GPIO_Alternate_function4     0x00000004u
+#define GPIO_Alternate_function5     0x00000005u
+#define GPIO_Alternate_function6     0x00000006u
+#define GPIO_Alternate_function7     0x00000007u
+#define GPIO_Alternate_function8     0x00000008u
+#define GPIO_Alternate_function9     0x00000009u
+#define GPIO_Alternate_function10    0x0000000Au
+#define GPIO_Alternate_function11    0x0000000Bu
+#define GPIO_Alternate_function12    0x0000000Cu
+#define GPIO_Alternate_function13    0x0000000Du
+#define GPIO_Alternate_function14    0x0000000Eu
+#define GPIO_Alternate_function15    0x0000000Fu
+
+
+
+/*	@ref GPIO_PINS_define
  */
 
+#define GPIO_PIN_0             ((uint16_t)0x0001) //pin 0
+#define GPIO_PIN_1             ((uint16_t)0x0002) //pin 1
+#define GPIO_PIN_2             ((uint16_t)0x0004) //pin 2
+#define GPIO_PIN_3             ((uint16_t)0x0008) //pin 3
+#define GPIO_PIN_4             ((uint16_t)0x0010) //pin 4
+#define GPIO_PIN_5             ((uint16_t)0x0020) //pin 5
+#define GPIO_PIN_6             ((uint16_t)0x0040) //pin 6
+#define GPIO_PIN_7             ((uint16_t)0x0080) //pin 7
+#define GPIO_PIN_8             ((uint16_t)0x0100) //pin 8
+#define GPIO_PIN_9             ((uint16_t)0x0200) //pin 9
+#define GPIO_PIN_10            ((uint16_t)0x0400) //pin 10
+#define GPIO_PIN_11            ((uint16_t)0x0800) //pin 11
+#define GPIO_PIN_12            ((uint16_t)0x1000) //pin 12
+#define GPIO_PIN_13            ((uint16_t)0x2000) //pin 13
+#define GPIO_PIN_14            ((uint16_t)0x4000) //pin 14
+#define GPIO_PIN_15            ((uint16_t)0x8000) //pin 15
+
+#define GPIO_PIN_ALL            ((uint16_t)0xFFFF) //pin 15
+#define GPIO_PIN_MASK           ((uint16_t)0x001) //pin 15
+
+
+
+
+/*	@ref GPIO_PIN_OUTPUT_defines
+ */
+
+#define GPIO_PIN_SET            1
+#define GPIO_PIN_RESET          0
 
 
 
 /*
- * =======================================================================================
- * 							Generic Functions
- * =======================================================================================
-*/  static uint8_t Get_Position(uint16_t GPIO_PIN_Numbre)
-{
-	switch (GPIO_PIN_Numbre)
-	{
-	case GPIO_PIN_0 :
-		       return 0;
-		         break ;
+ * -------------------------------------------------------------------------------------------------------
+ *                                   APIS Supported By MCAL GPIO DRIVER
+ *---------------------------------------------------------------------------------------------------------
+ * */
 
-		case GPIO_PIN_1 :
-		       return 2;
-		         break ;
-
-		case GPIO_PIN_2 :
-			   return 4;
-			     break ;
-
-		case GPIO_PIN_3 :
-		       return 6;
-		         break ;
-
-		case GPIO_PIN_4 :
-		       return 8;
-		         break ;
-
-		case GPIO_PIN_5 :
-		       return 10;
-		         break ;
-
-		case GPIO_PIN_6 :
-		       return 12;
-		         break ;
-
-		case GPIO_PIN_7 :
-		       return 14;
-		         break ;
-
-		case GPIO_PIN_8 :
-		       return 16;
-		         break ;
-
-		case GPIO_PIN_9 :
-		       return 18;
-		         break ;
-
-		case GPIO_PIN_10 :
-		       return 20;
-		         break ;
-
-		case GPIO_PIN_11 :
-		       return 22;
-		         break ;
-
-		case GPIO_PIN_12 :
-		       return 24;
-		         break ;
-
-		case GPIO_PIN_13 :
-		       return 26;
-		         break ;
-
-		case GPIO_PIN_14 :
-		       return 28;
-		         break ;
-
-		case GPIO_PIN_15 :
-		       return 30;
-		         break ;
-	}
-
-	return 0;
-
-}
+void MCAL_GPIO_Init(GPIO_TypeDef *GPIOx , GPIO_PINConfig_t *PinConfig);
+void MCAL_GPIO_DeInit(GPIO_TypeDef *GPIOx );
 
 
-/*
- * =======================================================================================
- * 							APIs Functions Definitions
- * =======================================================================================
- */
+//READ  APIs
+uint8_t  MCAL_GPIO_ReadPin(GPIO_TypeDef *GPIOx , uint16_t PinNumber);
+uint16_t MCAL_GPIO_ReadPort	(GPIO_TypeDef *GPIOx);
 
 
+//WRITE  APIs
+void MCAL_GPIO_WritePort(GPIO_TypeDef *GPIOx , uint16_t Value);
+void MCAL_GPIO_WritePin(GPIO_TypeDef *GPIOx , uint16_t PinNumber, uint8_t Value);
 
+void MCAL_GPIO_TogglePin(GPIO_TypeDef *GPIOx , uint16_t PinNumber);
 
-/**================================================================
- * @Fn				-MCAL_GPIO_Init
- * @brief 			- Initializes the GPIOx peripheral according to the specified parameters in the PinConfig
- * @param [in] 		- GPIOx: where x can be (A..E depending on device used) to select the GPIO peripheral
- * @param [in] 		- PinConfig: pointer to a GPIO_PinConfig_t structure that contains
- *         						 the configuration information for the specified GPIO peripheral.
- * @retval 			-none
- * Note				-Stm32L47bRGTb0 MCU has GPIO A,B,C,D,E.H Modules
- * 					 But LQFP64 Package has only GPIO A,B,C,H,PART of E/D exported as external PINS from the MCU
- */
-void MCAL_GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_PINConfig_t* PinConfig)
-{
+uint8_t MCAL_GPIO_LockPin(GPIO_TypeDef *GPIOx , uint16_t PinNumber);
 
-
-	volatile uint32_t *Config_register = (Get_Position(PinConfig->GPIO_pinNumber) < 16) ? &GPIOx->AFRL : &GPIOx->AFRH;
-
-
-	//clears the mode bits for the pin, preparing it for a new mode configuration.
-	GPIOx->MODER &= ~(0x3U << (Get_Position(PinConfig->GPIO_pinNumber ))); //
-    GPIOx->OTYPER &= ~(PinConfig->GPIO_pinNumber); //
-    GPIOx->OSPEEDR &= ~(0x3U << (Get_Position(PinConfig->GPIO_pinNumber )));  //
-    GPIOx->PUPDR &= ~(0x3U << (Get_Position(PinConfig->GPIO_pinNumber )));
-    GPIOx->ASCR &= ~(PinConfig->GPIO_pinNumber);  //
-
-    // configure the GPIOx mode input OR output OR Alternate_function OR _Analog_mode.
-    GPIOx->MODER |= (PinConfig->GPIO_MODE << (Get_Position(PinConfig->GPIO_pinNumber)));
-	// if output
-    if (PinConfig->GPIO_MODE == GPIO_output_mode)
-    {
-    	//if ((PinConfig->GPIO_OutputType == GPIO_Output_push_pull) ||  (PinConfig->GPIO_OutputType == GPIO_Output_open_drain))
-    	//{
-    	    GPIOx->OTYPER |= (PinConfig->GPIO_OutputType ? PinConfig->GPIO_pinNumber : 0);
-        //}
-        	//if ((PinConfig->GPIO_Output_Speed == GPIO_speed_2_MHz) || (PinConfig->GPIO_Output_Speed == GPIO_speed_10_MHz) || (PinConfig->GPIO_Output_Speed == GPIO_speed_50_MHz) || (PinConfig->GPIO_Output_Speed == GPIO_speed_80_MHz))
-        //{
-        	GPIOx->OSPEEDR |= (PinConfig->GPIO_Output_Speed << (Get_Position(PinConfig->GPIO_pinNumber)));
-        //}
-    }
-
-    // if input
-    else if (PinConfig->GPIO_MODE == GPIO_Input_mode)
-    {
-    	//if ((PinConfig->GPIO_inputType == GPIO_Input_No_pull_up_pull_down) || (PinConfig->GPIO_inputType == GPIO_Input_Pull_up) || (PinConfig->GPIO_inputType == GPIO_Input_Pull_down))
-    	//{
-    	 GPIOx->PUPDR |= (PinConfig->GPIO_inputType << (Get_Position(PinConfig->GPIO_pinNumber)));//
-        //}
-    }
-
-    // if Alternate_function
-    else if (PinConfig->GPIO_MODE == Alternate_function_mode)
-    {
-    	*Config_register |= PinConfig->Alternate_function << ((Get_Position(PinConfig->GPIO_pinNumber) % 8) * 4);
-    }
-
-    // if _Analog_mode
-    else if (PinConfig->GPIO_MODE == GPIO_Analog_mode)
-    {
-    	//if ((PinConfig->GPIO_inputType == GPIO_Disconnect_analog) || (PinConfig->GPIO_inputType == GPIO_Connect_analog))
-    	//{
-    	     GPIOx->ASCR |=  (PinConfig->GPIO_inputType ? PinConfig->GPIO_pinNumber : 0);
-    	//}
-    }
-}
-
-/**=======================================================================================================================
- * @Fn					-MCAL_GPIO_DeInit
- * @brief 				- reset all the GPIO Registers
- * @param [in] 			-GPIOx: where x can be (A..E depending on device used) to select the GPIO peripheral
- * @retval 				-none
- * Note					-none
- */
-
-void MCAL_GPIO_DeInit(GPIO_TypeDef *GPIOx ){
-
-	if (GPIOx == GPIOA)
-	{
-	    RCC->AHB2RSTR |= (1 << 0);   // Enable reset for GPIOA (bit 0)
-	    RCC->AHB2RSTR &= ~(1 << 0);  // Stop reset for GPIOA (bit 0)
-	}
-	else if (GPIOx == GPIOB)
-	{
-	    RCC->AHB2RSTR |= (1 << 1);   // Enable reset for GPIOB (bit 1)
-	    RCC->AHB2RSTR &= ~(1 << 1);  // Stop reset for GPIOB (bit 1)
-	}
-	else if (GPIOx == GPIOC)
-	{
-	    RCC->AHB2RSTR |= (1 << 2);   // Enable reset for GPIOC (bit 2)
-	    RCC->AHB2RSTR &= ~(1 << 2);  // Stop reset for GPIOC (bit 2)
-	}
-	else if (GPIOx == GPIOD)
-	{
-	    RCC->AHB2RSTR |= (1 << 3);   // Enable reset for GPIOD (bit 3)
-	    RCC->AHB2RSTR &= ~(1 << 3);  // Stop reset for GPIOD (bit 3)
-	}
-	else if (GPIOx == GPIOE)
-	{
-	    RCC->AHB2RSTR |= (1 << 4);   // Enable reset for GPIOE (bit 4)
-	    RCC->AHB2RSTR &= ~(1 << 4);  // Stop reset for GPIOE (bit 4)
-	}
-	else if (GPIOx == GPIOH)
-	{
-	    RCC->AHB2RSTR |= (1 << 7);   // Enable reset for GPIOH (bit 7)
-	    RCC->AHB2RSTR &= ~(1 << 7);  // Stop reset for GPIOH (bit 7)
-	}
-}
-
-
-/**=======================================================================================================================
- * @Fn					-MCAL_GPIO_ReadPin
- * @brief 				-Reads the specified input port pin
- * @param [in] 			-GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
- * @param [in] 			-PinNumber: specifies the port bit to read. Set by @ref GPIO_PINS_define
- * @retval 				-The input port pin value.
- * Note					-none
- */
-
-
-uint8_t MCAL_GPIO_ReadPin(GPIO_TypeDef *GPIOx , uint16_t PinNumber)
-{
-   uint8_t BitStatus;
-   if ((GPIOx->IDR & PinNumber) != GPIO_PIN_RESET)
-   {
-	   BitStatus = GPIO_PIN_SET;
-   }else
-   {
-	   BitStatus = GPIO_PIN_RESET;
-   }
-   return BitStatus;
-}
-
-/**==================================================================================================================
- * @Fn					-MCAL_GPIO_ReadPort
- * @brief 				-read the input port VALUE
- * @param [in] 			-GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
- * @retval 				-the input port VALUE
- * Note					-none
- */
-
-uint16_t MCAL_GPIO_ReadPort(GPIO_TypeDef *GPIOx)
-{
-	uint16_t port_value ;
-	port_value = (uint16_t)(GPIOx->IDR) ;
-	return port_value ;
-}
-
-/**==================================================================================================================
- * @Fn					-MCAL_GPIO_WritePin
- * @brief 				-write on specific input pin
- * @param [in] 			-GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
- *@param [in] 			-PinNumber:  specifies the port bit to read. Set by @ref GPIO_PINS_define
- *@param [in] 			-Value: Pin Value
- *
- * @retval 			-none
- * Note				-none
- */
-void MCAL_GPIO_WritePin	(GPIO_TypeDef *GPIOx , uint16_t PinNumber, uint8_t Value)
-{
-	if (Value != GPIO_PIN_RESET)
-		{
-			// Atomic: Write to BSRR sets the corresponding pin in 1 CPU cycle without affecting other bits
-			GPIOx->BSRR = PinNumber;
-
-			// Not Atomic: Reads, modifies, and writes ODR, which can cause race conditions
-			// GPIOx->ODR |= PinNumber;
-		}
-		else
-		{
-
-			GPIOx->BSRR = PinNumber << 16U;
-
-		 // GPIOx->ODR &= ~(PinNumber);
-		}
-
-}
-
-
-/**==================================================================================================================
- * @Fn					-MCAL_GPIO_WritePort
- * @brief 				-write on output port
- * @param [in] 			-GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
- * @retval 				-none
- * Note					-none
- */
-void MCAL_GPIO_WritePort (GPIO_TypeDef *GPIOx , uint16_t Value)
-{
-
-	GPIOx->ODR = (uint32_t)(Value);
-}
-
-/**================================================================
- * @Fn					-MCAL_GPIO_TogglePin
- * @brief 				-Toggles the specified GPIO pin
- * @param [in] 			-GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
- * @param [in] 			-PinNumber: specifies the port bit to read. Set by @ref GPIO_PINS_define
- * @retval 			-none
- * Note				-none
- */
-void MCAL_GPIO_TogglePin		(GPIO_TypeDef *GPIOx , uint16_t PinNumber)
-{
-	GPIOx->ODR ^= (PinNumber);
-}
-
-#endif /* GPIO_GPIO_STM32_L47BRGTB0_DRIVER_H_ */
+#endif /* GPIO_STM32_L47BRGTB0_DRIVER_H_ */
