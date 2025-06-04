@@ -102,6 +102,15 @@
 
 #define APB1PERIPH_BASE        Peripherals_BASE
 
+//-----------------------------------
+//Base addresses for APB2 Peripherals
+//-----------------------------------
+
+#define APB2PERIPH_BASE        (Peripherals_BASE + 0x00010000UL)
+
+#define SYSCFG_BASE            (APB2PERIPH_BASE + 0x0000UL)   //
+
+#define EXTI_BASE              (APB2PERIPH_BASE + 0x0400UL)
 //--------------------------------------
 // Peripheral Register : RCC
 //--------------------------------------
@@ -246,6 +255,14 @@ typedef struct
 
 #define RCC       ((RCC_TypeDef * ) RCC_BASE)
 
+//-----------------------------------
+//Base addresses for APB1 Peripherals
+//-----------------------------------
+
+#define SYSCFG   ((SYSCFG_TypeDef *) SYSCFG_BASE)
+
+#define EXTI     ((EXTI_TypeDef *) EXTI_BASE)
+
 //-----------------------------------------------
 //Clock enable Macros :
 //-----------------------------------------------
@@ -258,7 +275,7 @@ typedef struct
 #define RCC_GPIOD_CLK_EN()       (RCC->AHB2ENR |= (1<< 3))
 #define RCC_GPIOE_CLK_EN()       (RCC->AHB2ENR |= (1<< 4))
 #define RCC_GPIOH_CLK_EN()       (RCC->AHB2ENR |= (1<< 7))
-
+#define RCC_SYSCFG_CLK_EN()      (RCC->APB2ENR |= (1 << 0))
 //-----------------------------------------------
 //IVT
 //-----------------------------------------------
