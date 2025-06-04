@@ -1,7 +1,7 @@
 /*
  * EXTI_STM32_L47BRGTB0_Driver.h
  *
- *  Created on: 
+ *  Created on:
  *      Author: badreddine.merareb
  */
 
@@ -181,6 +181,22 @@ typedef struct
 #define EXTI15PC15                 	(EXTI_GPIO_Mapping_t){EXTI15, GPIOC , GPIO_PIN_15 ,EXTI15_IRQ}
 #define EXTI15PD15                 	(EXTI_GPIO_Mapping_t){EXTI15, GPIOD , GPIO_PIN_15 , EXTI15_IRQ}
 
+
+//======================
+//@ref EXTI_Trigger_define
+
+#define EXTI_Trigger_RISING_Disabled								0
+#define EXTI_Trigger_RISING_Enabled								    1
+
+#define EXTI_Trigger_FALLING_Disabled                               0
+#define EXTI_Trigger_FALLING_Enabled                                1
+
+#define EXTI_Trigger_RisingAndFalling					            2
+
+//======================
+//@ref EXTI_IRQ_define
+#define EXTI_IRQ_Enable 								1
+#define EXTI_IRQ_Disable 								0
 /*
  * =======================================================================================
  * 							APIs Supported by "MCAL GPIO DRIVER"
