@@ -2,7 +2,7 @@
  * stm32f103x6_USART_driver.h
  *
  *  Created on: 
- *      Author: 
+ *      Author: Merareb Badreddine 
  */
 
 #ifndef UART_Stm32_F103C6_Driver_H_
