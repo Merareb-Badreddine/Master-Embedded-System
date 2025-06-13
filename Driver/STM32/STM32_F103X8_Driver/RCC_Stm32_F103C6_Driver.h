@@ -2,7 +2,7 @@
  * stm32f103x6_RCC_driver.h
  *
  *  Created on:
- *      Author: 
+ *      Author: Merareb Badreddine 
  */
 
 #ifndef RCC_Stm32_F103C6_Driver_H_
