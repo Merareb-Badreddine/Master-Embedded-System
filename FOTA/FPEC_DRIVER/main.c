@@ -26,7 +26,7 @@ int main(void)
 	 uint32_t L_page;
 	 L_page = MCAL_FPEC_GetPageNumber(0x08080120);
 	 MCAL_FPEC_ErasPages(L_page,2);
-	 MCAL_FPEC_Write(0x08080120, Data,3);
+	 MCAL_FPEC_Write(0x08080120,&Data,3);
 
 	for(;;);
 }
