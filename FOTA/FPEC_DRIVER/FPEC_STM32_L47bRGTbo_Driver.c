@@ -79,7 +79,7 @@ void MCAL_FPEC_ErasPages(uint8_t Page_Numbre, uint8_t N_OF_Page)
 uint8_t MCAL_FPEC_Get_ReadProtectionLevel(void)
 {
 
-	 uint8_t rdp_level = (uint8_t)(FLASH->OPTR & 0xFF);
+	 uint8_t rdp_level = (uint8_t)(FLASH_R->OPTR & 0xFF);
 
 	    return rdp_level;
 }
