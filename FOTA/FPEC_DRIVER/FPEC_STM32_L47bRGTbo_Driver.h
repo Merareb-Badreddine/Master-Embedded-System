@@ -2,7 +2,7 @@
  *  FPEC_STM_L47bRGTbo_Driver.h
  *
  *  Created on:
- *      Author: badreddine.merareb
+ *      Author: Merareb.Badreddine
  */
 
 #ifndef FPEC_STM_L47bRGTbo_Driver_H_
