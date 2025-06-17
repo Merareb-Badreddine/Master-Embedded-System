@@ -65,6 +65,8 @@
 
 #define RCC_BASE                          (AHB1PERIPH_BASE + 0x1000UL)
 
+#define Flash_Registers                   (AHB1PERIPH_BASE + 0x2000UL)
+
 //-----------------------------------
 //Base addresses for AHB2 Peripherals
 //-----------------------------------
@@ -237,6 +239,27 @@ typedef struct
         volatile uint32_t RESERVED5[644U];
         volatile uint32_t STIR;                   
 }  NVIC_Type;
+
+//-----------------------------------
+// Peripheral Register : Flash
+//-----------------------------------
+
+
+typedef struct
+{
+        volatile uint32_t ACR;
+        volatile uint32_t PDKEYR;
+        volatile uint32_t KEYR;
+        volatile uint32_t OPTKEYR;
+        volatile uint32_t SR;
+        volatile uint32_t CR;
+        volatile uint32_t ECCR;
+        volatile uint32_t OPTR;
+        volatile uint32_t PCROP1SR;;
+        volatile uint32_t PCROP1ER;
+        volatile uint32_t WRP1AR;
+}  Flash_TypeDef;
+
 //----------------------------------------------
 //Peripheral Instants :
 //----------------------------------------------
@@ -255,6 +278,7 @@ typedef struct
 
 #define RCC       ((RCC_TypeDef * ) RCC_BASE)
 
+#define FLASH_R    ((Flash_TypeDef *)Flash_Registers)
 //-----------------------------------
 //Base addresses for APB1 Peripherals
 //-----------------------------------
