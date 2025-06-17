@@ -2,7 +2,7 @@
  *  FPEC_STM_L47bRGTbo_Driver.h
  *
  *  Created on:
- *      Author: Merareb.Badreddine
+ *      Author: badreddine.merareb
  */
 
 #ifndef FPEC_STM_L47bRGTbo_Driver_H_
@@ -21,16 +21,18 @@
 #define FLASH_CR_LOCK     (1U << 31)
 
 
-
-
 #define FLASH_CR_PER       (1U << 1)
 #define FLASH_CR_STRT      (1U << 16)
 #define FLASH_PAGE_NUMBER_POS       (3U)
 
+
+#define FLASH_SR_EOP        (1U << 0)
+
+#define FLASH_PAGE_SIZE     2048U
+
 #define FLASH_RDP_LEVEL_0      0xAA
 #define FLASH_RDP_LEVEL_1      0xCC
 #define FLASH_RDP_LEVEL_2      0xFF
-
 
 /*
  * -------------------------------------------------------------------------------------------------------
@@ -38,9 +40,11 @@
  *---------------------------------------------------------------------------------------------------------
  * */
 
-void MCAL_FPEC_Write(uint32_t Address, uint32_t *Data, uint32_t Data_Length);
-void MCAL_FPEC_ErasPages(uint8_t Page_Numbre, uint8_t N_OF_Page);
+void MCAL_FPEC_Write(uint32_t Address, uint64_t *Data, uint32_t Data_Length);
+void MCAL_FPEC_ErasPages(uint32_t Page_Numbre,uint8_t N_OF_Page);
 uint8_t MCAL_FPEC_Get_ReadProtectionLevel(void);
-
+uint32_t MCAL_FPEC_GetPageNumber(uint32_t Address);
 
 #endif /* FPEC_STM_L47bRGTbo_Driver_H_ */
+
+
