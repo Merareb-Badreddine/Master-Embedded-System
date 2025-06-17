@@ -60,12 +60,12 @@ typedef struct
 #define UART_BaudRate_9600			9600
 #define UART_BaudRate_19200			19200
 #define UART_BaudRate_57600			57600
-#define UART_BaudRate_115200		115200
-#define UART_BaudRate_230400		230400
-#define UART_BaudRate_460800		460800
-#define UART_BaudRate_921600		921600
-#define UART_BaudRate_225000		2250000
-#define UART_BaudRate_4500000		4500000
+#define UART_BaudRate_115200		        115200
+#define UART_BaudRate_230400		        230400
+#define UART_BaudRate_460800		        460800
+#define UART_BaudRate_921600		        921600
+#define UART_BaudRate_225000		       2250000
+#define UART_BaudRate_4500000		       4500000
 
 // @Ref UART_Payload_Legth_define
 #define UART_Payload_Length_8B		(uint32_t)(0)
