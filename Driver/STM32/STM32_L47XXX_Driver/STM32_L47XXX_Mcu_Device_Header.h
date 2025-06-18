@@ -179,7 +179,7 @@ typedef struct
         volatile uint32_t PCROP1SR;;
         volatile uint32_t PCROP1ER;
         volatile uint32_t WRP1AR;
-}
+} Flash_TypeDef
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 
@@ -207,6 +207,7 @@ typedef struct
 #define USART2		    ((USART_Typedef_t*)USART2_BASE)
 #define USART3		    ((USART_Typedef_t*)USART3_BASE)
 
+#define Flach_R              ((Flash_TypeDef *)Flash_Registers)
 
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
