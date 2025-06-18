@@ -1,244 +1,165 @@
+
 /*
-*  STM32L47.h
-*
-*
-*Created on : 
-* Author : Merareb Badreddine
-*/
+ * Stm32_F103X6.h
+ *
+ *  Created on: 
+ *      Author: Merareb Badreddine
+ */
 
-#ifndef STM32_L47bRGTb0_Device_Header_H
-#define STM32_L47bRGTb0_Device_Header_H
+#ifndef STM32_F103X6_Mcu_Device_Header
+#define STM32_F103X6_Mcu_Device_Header
+
 //-----------------------------
-//Includes 
+//Includes
 //-----------------------------
 
-#include <stdint.h>
+typedef unsigned int unit32_t;
 
 //-----------------------------
 //Base addresses for Memories
 //-----------------------------
+#define FLASH_Memory_BASE            					0x08000000UL
+#define System_Memory_BASE            					0x1FFFF000UL
+#define SRAM_BASE            						0x20000000UL
 
-#define FLASH_BASE            (0x08000000UL) 
+#define Peripherals_BASE            					0x40000000UL
 
-#define SRAM1_BASE            (0x20000000UL) 
-
-#define SRAM2_BASE            (0x20040000UL)
-
-#define Peripherals_BASE      (0x40000000UL) 
-
-
-#define APB2PERIPH_BASE       (Peripherals_BASE + 0x00010000UL)
-
-#define Cortex_M4_Internal_Peripherals_BASE   (0xE000E000)
+#define Cortex_M3_Internal_Peripherals_BASE            	                0xE0000000UL
+//NVIC register map
 
 
-//-----------------------------------
-//  NVIC register map
-//-----------------------------------
-#define NVIC_BASE    (0xE000E100)
+#define NVIC_Base					(0xE000E100UL)
+#define NVIC_ISER0					*(volatile uint32_t *)(NVIC_Base + 0x0 )
+#define NVIC_ISER1					*(volatile uint32_t *)(NVIC_Base + 0x4)
+#define NVIC_ISER2					*(volatile uint32_t *)(NVIC_Base + 0x8)
+#define NVIC_ICER0					*(volatile uint32_t *)(NVIC_Base + 0x80)
+#define NVIC_ICER1					*(volatile uint32_t *)(NVIC_Base + 0x84)
+#define NVIC_ICER2					*(volatile uint32_t *)(NVIC_Base + 0x88)
 
-// Interrupt Set-Enable Registers
-/* ==============  Interrupt Set‑Enable Registers  ============== */
-#define NVIC_ISER0      (*(volatile uint32_t *)(NVIC_BASE + 0x000))
-#define NVIC_ISER1      (*(volatile uint32_t *)(NVIC_BASE + 0x004))
-#define NVIC_ISER2      (*(volatile uint32_t *)(NVIC_BASE + 0x008))
-#define NVIC_ISER3      (*(volatile uint32_t *)(NVIC_BASE + 0x00C))
-#define NVIC_ISER4      (*(volatile uint32_t *)(NVIC_BASE + 0x010))
-#define NVIC_ISER5      (*(volatile uint32_t *)(NVIC_BASE + 0x014))
-#define NVIC_ISER6      (*(volatile uint32_t *)(NVIC_BASE + 0x018))
-#define NVIC_ISER7      (*(volatile uint32_t *)(NVIC_BASE + 0x01C))
+#define USART1_BASE         (APB2_BUS_BASE + 0x3800)
 
-/* ==============  Interrupt Clear‑Enable Registers  ============== */
-#define NVIC_ICER0      (*(volatile uint32_t *)(NVIC_BASE + 0x080))
-#define NVIC_ICER1      (*(volatile uint32_t *)(NVIC_BASE + 0x084))
-#define NVIC_ICER2      (*(volatile uint32_t *)(NVIC_BASE + 0x088))
-#define NVIC_ICER3      (*(volatile uint32_t *)(NVIC_BASE + 0x08C))
-#define NVIC_ICER4      (*(volatile uint32_t *)(NVIC_BASE + 0x090))
-#define NVIC_ICER5      (*(volatile uint32_t *)(NVIC_BASE + 0x094))
-#define NVIC_ICER6      (*(volatile uint32_t *)(NVIC_BASE + 0x098))
-#define NVIC_ICER7      (*(volatile uint32_t *)(NVIC_BASE + 0x09C))
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+// Base addresses for APB1 Peripherals
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
-//-----------------------------------
-//Base addresses for AHB1 Peripherals
-//-----------------------------------
+#define USART2_BASE         (APB1_BUS_BASE + 0x4400)
+#define USART3_BASE         (APB1_BUS_BASE + 0x4800)
+
+//-----------------------------
+//Base addresses for AHB Peripherals
+//-----------------------------
 #define AHB1PERIPH_BASE                   (Peripherals_BASE + 0x00020000UL)
-
-#define RCC_BASE                          (AHB1PERIPH_BASE + 0x1000UL)
-
+#define RCC_BASE              (Peripherals_BASE + 0x00021000UL)
 #define Flash_Registers                   (AHB1PERIPH_BASE + 0x2000UL)
-
-//-----------------------------------
-//Base addresses for AHB2 Peripherals
-//-----------------------------------
-
-#define AHB2PERIPH_BASE                   (Peripherals_BASE + 0x08000000UL) 
-
-
-// A,B,C,H fully included in LQFP64 Package 
-
-#define GPIOA_BASE                         (AHB2PERIPH_BASE + 0x0000UL)
-
-#define GPIOB_BASE                         (AHB2PERIPH_BASE + 0x0400UL)
-
-#define GPIOC_BASE                         (AHB2PERIPH_BASE + 0x0800UL)    
-
-//E,D Partial included in LQFP64 Package
-
-#define GPIOD_BASE                        (AHB2PERIPH_BASE + 0x0C00UL)
-
-#define GPIOE_BASE                        (AHB2PERIPH_BASE + 0x1000UL)
-
-//F,G NOT included in LQFP64 Package
-
-#define GPIOF_BASE                        (AHB2PERIPH_BASE + 0x1400UL)
-
-#define GPIOG_BASE                        (AHB2PERIPH_BASE + 0x1800UL)
-
-#define GPIOH_BASE                        (AHB2PERIPH_BASE + 0x1C00UL)
-
-
-
-//-----------------------------------
-//Base addresses for APB1 Peripherals
-//-----------------------------------
-
-#define APB1PERIPH_BASE        Peripherals_BASE
-
-//-----------------------------------
+//-----------------------------
 //Base addresses for APB2 Peripherals
-//-----------------------------------
+//-----------------------------
 
-#define APB2PERIPH_BASE        (Peripherals_BASE + 0x00010000UL)
+//GPIO
+//A,B fully included in LQFP48 Package
+#define GPIOA_BASE            (Peripherals_BASE + 0x00010800UL)
+#define GPIOB_BASE            (Peripherals_BASE + 0x00010C00UL)
+//C,D Partial  included in LQFP48 Package
+#define GPIOC_BASE            (Peripherals_BASE + 0x00011000UL)
+#define GPIOD_BASE            (Peripherals_BASE + 0x00011400UL)
+//EP not  included in LQFP48 Package
+#define GPIOE_BASE            (Peripherals_BASE + 0x00011800UL)
+//-------
 
-#define SYSCFG_BASE            (APB2PERIPH_BASE + 0x0000UL)   //
+#define AFIO_BASE             (Peripherals_BASE + 0x00010000UL)
+#define EXTI_BASE             (Peripherals_BASE + 0x00010400UL)
 
-#define EXTI_BASE              (APB2PERIPH_BASE + 0x0400UL)
-//--------------------------------------
-// Peripheral Register : RCC
-//--------------------------------------
 
-typedef struct {
-        volatile uint32_t CR;
-        volatile uint32_t ICSCR;
-        volatile uint32_t CFGR;
-        volatile uint32_t PLLCFGR;
-        volatile uint32_t PLLSAI1CFGR;
-        volatile uint32_t PLLSAI2CFGR;
-        volatile uint32_t CIER;
-        volatile uint32_t CIFR;
-        volatile uint32_t CICR;
-        uint32_t RESERVED0;
-        volatile uint32_t AHB1RSTR;
-        volatile uint32_t AHB2RSTR;
-        volatile uint32_t AHB3RSTR;
-        uint32_t RESERVED1;
-        volatile uint32_t APB1RSTR1;
-        volatile uint32_t APB1RSTR2;
-        volatile uint32_t APB2RSTR;
-        uint32_t RESERVED2;
-        volatile uint32_t AHB1ENR;
-        volatile uint32_t AHB2ENR;
-        volatile uint32_t AHB3ENR;
-        uint32_t RESERVED3;
-        volatile uint32_t APB1ENR1;
-        volatile uint32_t APB1ENR2;
-        volatile uint32_t APB2ENR;
-        uint32_t RESERVED4;
-        volatile uint32_t AHB1SMENR;
-        volatile uint32_t AHB2SMENR;
-        volatile uint32_t AHB3SMENR;
-        uint32_t RESERVED5;
-        volatile uint32_t APB1SMENR1;
-        volatile uint32_t APB1SMENR2;
-        volatile uint32_t APB2SMENR;
-        uint32_t RESERVED6;
-        volatile uint32_t CCIPR;
-        uint32_t RESERVED7;
-        volatile uint32_t BDCR;
-        volatile uint32_t CSR;
+//-----------------------------
+//Base addresses for APB1 Peripherals
+//-----------------------------
+
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+//Peripheral register
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: GPIO
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef struct
+{
+	volatile uint32_t CRL;
+	volatile uint32_t CRH;
+	volatile uint32_t IDR;
+	volatile uint32_t ODR;
+	volatile uint32_t BSRR;
+	volatile uint32_t BRR;
+	volatile uint32_t LCKR;
+} GPIO_TypeDef;
+
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: RCC
+//-*-*-*-*-*-*-*-*-*-*-*
+
+typedef struct
+{
+	volatile uint32_t CR;
+	volatile uint32_t CFGR;
+	volatile uint32_t CIR;
+	volatile uint32_t APB2RSTR;
+	volatile uint32_t APB1RSTR;
+	volatile uint32_t AHBENR;
+	volatile uint32_t APB2ENR;
+	volatile uint32_t APB1ENR;
+	volatile uint32_t BDCR;
+	volatile uint32_t CSR;
+	volatile uint32_t AHBSTR;
+	volatile uint32_t CFGR2;
 
 } RCC_TypeDef;
 
-//-----------------------------------
-// Peripheral Register : GPIO 
-//-----------------------------------
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
-typedef struct 
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: EXTI
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef struct
 {
-       volatile uint32_t MODER;
-       volatile uint32_t OTYPER;
-       volatile uint32_t OSPEEDR;
-       volatile uint32_t PUPDR;
-       volatile uint32_t IDR;
-       volatile uint32_t ODR;
-       volatile uint32_t BSRR;
-       volatile uint32_t LCKR;
-       volatile uint32_t AFRL; 
-       volatile uint32_t AFRH;
-       volatile uint32_t BRR;
-       volatile uint32_t ASCR;       
-} GPIO_TypeDef;
+	volatile uint32_t IMR;
+	volatile uint32_t EMR;
+	volatile uint32_t RTSR;
+	volatile uint32_t FTSR;
+	volatile uint32_t SWIER;
+	volatile uint32_t PR;
+} EXTI_TypeDef;
 
-
-
-//-----------------------------------
-// Peripheral Register : SYSCFG                 //AFIO
-//-----------------------------------
-
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+// Peripheral register: USART
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 typedef struct
 {
-       volatile uint32_t MEMRMP;      
-       volatile uint32_t CFGR1;       
-       volatile uint32_t EXTICR[4];   
-       volatile uint32_t SCSR;        
-       volatile uint32_t CFGR2;       
-       volatile uint32_t SWPR;        
-       volatile uint32_t SKR;        
-} SYSCFG_TypeDef;
-
-//-----------------------------------
-// Peripheral Register : EXTI
-//-----------------------------------
- typedef struct
-{
-        volatile uint32_t IMR1;        
-        volatile uint32_t EMR1;       
-        volatile uint32_t RTSR1;       
-        volatile uint32_t FTSR1;       
-        volatile uint32_t SWIER1;     
-        volatile uint32_t PR1;         
-        uint32_t RESERVED1;   
-        uint32_t RESERVED2;                              
-        volatile uint32_t IMR2;        
-        volatile uint32_t EMR2;        
-        volatile uint32_t RTSR2;       
-        volatile uint32_t FTSR2;       
-        volatile uint32_t SWIER2;      
-        volatile uint32_t PR2;         
-} EXTI_TypeDef;    
-
-//-----------------------------------
-// Peripheral Register : NVIC
-//-----------------------------------
+	 uint32_t SR;				/* Status register, 						Address offset: 0x00 */
+	 uint32_t DR;				/* Data register , 							Address offset: 0x04 */
+	 uint32_t BRR;				/* Baud rate register, 						Address offset: 0x08 */
+	 uint32_t CR1;				/* Control register 1, 						Address offset: 0x0C */
+	 uint32_t CR2;				/* Control register 2, 						Address offset: 0x10 */
+	 uint32_t CR3;				/* Control register 3, 						Address offset: 0x14 */
+	 uint32_t GTPR;			/* Guard time and pre-scaler register, 		Address offset: 0x18 */
+}USART_TypeDef;
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: AFIO
+//-*-*-*-*-*-*-*-*-*-*-*
 typedef struct
 {
-        volatile uint32_t ISER[8U];              
-        volatile uint32_t RESERVED0[24U];
-        volatile uint32_t ICER[8U];              
-        volatile uint32_t RESERVED1[24U];
-        volatile uint32_t ISPR[8U];              
-        volatile uint32_t RESERVED2[24U];
-        volatile uint32_t ICPR[8U];              
-        volatile uint32_t RESERVED3[24U];
-        volatile uint32_t IABR[8U];               
-        volatile uint32_t RESERVED4[56U];
-        volatile uint32_t  IP[240U];               
-        volatile uint32_t RESERVED5[644U];
-        volatile uint32_t STIR;                   
-}  NVIC_Type;
+	volatile uint32_t EVCR;
+	volatile uint32_t MAPR;
+	volatile uint32_t EXTICR[4];
+	uint32_t RESERVED0;
+	volatile uint32_t MAPR2;
+} AFIO_TypeDef;
 
 //-----------------------------------
 // Peripheral Register : Flash
@@ -258,100 +179,143 @@ typedef struct
         volatile uint32_t PCROP1SR;;
         volatile uint32_t PCROP1ER;
         volatile uint32_t WRP1AR;
-}  Flash_TypeDef;
+}
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
-//----------------------------------------------
-//Peripheral Instants :
-//----------------------------------------------
 
-#define GPIOA     ((GPIO_TypeDef * )GPIOA_BASE)
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral Instants:
+//-*-*-*-*-*-*-*-*-*-*-*
 
-#define GPIOB     ((GPIO_TypeDef * )GPIOB_BASE)
+#define GPIOA               ((GPIO_TypeDef *)GPIOA_BASE)
+#define GPIOB               ((GPIO_TypeDef *)GPIOB_BASE)
+#define GPIOC               ((GPIO_TypeDef *)GPIOC_BASE)
+#define GPIOD               ((GPIO_TypeDef *)GPIOD_BASE)
+#define GPIOE               ((GPIO_TypeDef *)GPIOE_BASE)
 
-#define GPIOC     ((GPIO_TypeDef * )GPIOC_BASE)
 
-#define GPIOD     ((GPIO_TypeDef * )GPIOD_BASE)
+#define RCC                 ((RCC_TypeDef *)RCC_BASE)
 
-#define GPIOE     ((GPIO_TypeDef * )GPIOE_BASE)
+#define AFIO                ((AFIO_TypeDef *)AFIO_BASE)
+#define EXTI                ((EXTI_TypeDef *)EXTI_BASE)
 
-#define GPIOH     ((GPIO_TypeDef * )GPIOH_BASE)
 
-#define RCC       ((RCC_TypeDef * ) RCC_BASE)
+#define USART1		    ((USART_Typedef_t*)USART1_BASE)
+#define USART2		    ((USART_Typedef_t*)USART2_BASE)
+#define USART3		    ((USART_Typedef_t*)USART3_BASE)
 
-#define FLASH_R    ((Flash_TypeDef *)Flash_Registers)
-//-----------------------------------
-//Base addresses for APB1 Peripherals
-//-----------------------------------
 
-#define SYSCFG   ((SYSCFG_TypeDef *) SYSCFG_BASE)
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*-*-*-*-*-*-*-*-*-
+//clock enable Macros:
+//-*-*-*-*-*-*-*-*-*-*-*
+//Enable clock GPIOX
+#define RCC_GPIOA_CLK_EN()	( RCC->APB2ENR |= (1<<2) )
+#define RCC_GPIOB_CLK_EN()	( RCC->APB2ENR |= (1<<3) )
+#define RCC_GPIOC_CLK_EN()	( RCC->APB2ENR |= (1<<4) )
+#define RCC_GPIOD_CLK_EN()	( RCC->APB2ENR |= (1<<5) )
+#define RCC_GPIOE_CLK_EN()	( RCC->APB2ENR |= (1<<6) )
 
-#define EXTI     ((EXTI_TypeDef *) EXTI_BASE)
+#define RCC_AFIO_CLK_EN()	(RCC->APB2ENR |= 1 << 0)  //AFIO enable is in bit 0
 
-//-----------------------------------------------
-//Clock enable Macros :
-//-----------------------------------------------
+#define RCC_USART1_CLK_EN()	(RCC->APB2ENR |= 1 << 14) //USART1 enable is in bit 14
+#define RCC_USART2_CLK_EN()	(RCC->APB1ENR |= 1 << 17) //USART1 enable is in bit 17
+#define RCC_USART3_CLK_EN()	(RCC->APB1ENR |= 1 << 18) //USART1 enable is in bit 18
 
-// Enable clock GPIOX
+/*
+ * Disable clock
+ */
+#define RCC_USART1_CLK_DI()	(RCC->APB2RSTR |= 1 << 14) //USART1 disable is in bit 14
+#define RCC_USART2_CLK_DI()	(RCC->APB1RSTR |= 1 << 17) //USART1 disable is in bit 17
+#define RCC_USART3_CLK_DI()	(RCC->APB1RSTR |= 1 << 18) //USART1 disable is in bit 18
 
-#define RCC_GPIOA_CLK_EN()       (RCC->AHB2ENR |= (1<< 0))
-#define RCC_GPIOB_CLK_EN()       (RCC->AHB2ENR |= (1<< 1))
-#define RCC_GPIOC_CLK_EN()       (RCC->AHB2ENR |= (1<< 2))
-#define RCC_GPIOD_CLK_EN()       (RCC->AHB2ENR |= (1<< 3))
-#define RCC_GPIOE_CLK_EN()       (RCC->AHB2ENR |= (1<< 4))
-#define RCC_GPIOH_CLK_EN()       (RCC->AHB2ENR |= (1<< 7))
-#define RCC_SYSCFG_CLK_EN()      (RCC->APB2ENR |= (1 << 0))
-//-----------------------------------------------
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-
 //IVT
-//-----------------------------------------------
+//-*-*-*-*-*-*-*-*-*-*-*
 //EXTI
 
-#define EXTI0_IRQ =      6
-#define EXTI1_IRQ =      7
-#define EXTI2_IRQ =      8
-#define EXTI3_IRQ =      9
-#define EXTI4_IRQ =      10
-#define EXTI5_IRQ =      23
-#define EXTI6_IRQ =      23
-#define EXTI7_IRQ =      23
-#define EXTI8_IRQ =      23
-#define EXTI9_IRQ =      23
-#define EXTI10_IRQ =     40
-#define EXTI11_IRQ =     40
-#define EXTI12_IRQ =     40
-#define EXTI13_IRQ =     40
-#define EXTI14_IRQ =     40
-#define EXTI15_IRQ =     40
+#define EXTI0_IRQ		6
+#define EXTI1_IRQ		7
+#define EXTI2_IRQ		8
+#define EXTI3_IRQ		9
+#define EXTI4_IRQ		10
+#define EXTI5_IRQ		23
+#define EXTI6_IRQ		23
+#define EXTI7_IRQ		23
+#define EXTI8_IRQ		23
+#define EXTI9_IRQ		23
+#define EXTI10_IRQ		40
+#define EXTI11_IRQ		40
+#define EXTI12_IRQ		40
+#define EXTI13_IRQ		40
+#define EXTI14_IRQ		40
+#define EXTI15_IRQ		40
+
+/*
+ * USART
+ */
+#define USART1_IRQ		37
+#define USART2_IRQ		38
+#define USART3_IRQ		39
 
 
-//-----------------------------------------------
-//NVIC IRQ Enable/Disable
-//-----------------------------------------------
-
-//NVIC IRQ Enable
-
-#define NVIC_IRQ6_EXTI0_Enable()			(NVIC_ISER0 |= 1<<6)				// EXTI0 ---> PIN6 in NVIC
-#define NVIC_IRQ7_EXTI1_Enable()			(NVIC_ISER0 |= 1<<7)				// EXTI1 ---> PIN7 in NVIC
-#define NVIC_IRQ8_EXTI2_Enable()			(NVIC_ISER0 |= 1<<8)				// EXTI2 ---> PIN8 in NVIC
-#define NVIC_IRQ9_EXTI3_Enable()			(NVIC_ISER0 |= 1<<9)				// EXTI3 ---> PIN9 in NVIC
-#define NVIC_IRQ10_EXTI4_Enable()			(NVIC_ISER0 |= 1<<10)				// EXTI4 ---> PIN10 in NVIC
-#define NVIC_IRQ23_EXTI5_9_Enable()			(NVIC_ISER0 |= 1<<23)				// EXTI5, EXTI6, EXTI7, EXTI8, EXTI9 ---> PIN23 in NVIC
-
-// 40 - 32 = 8
-#define NVIC_IRQ40_EXTI10_15_Enable()		(NVIC_ISER1 |= 1<<8)				// EXTI10, EXTI11, EXTI12, EXTI13, EXTI14, EXTI15
-
-//NVIC IRQ Disable
-#define NVIC_IRQ6_EXTI0_Disable()			(NVIC_ICER0 |= 1<<6)				// EXTI0 ---> PIN6 in NVIC
-#define NVIC_IRQ7_EXTI1_Disable()			(NVIC_ICER0 |= 1<<7)				// EXTI1 ---> PIN7 in NVIC
-#define NVIC_IRQ8_EXTI2_Disable()			(NVIC_ICER0 |= 1<<8)				// EXTI2 ---> PIN8 in NVIC
-#define NVIC_IRQ9_EXTI3_Disable()			(NVIC_ICER0 |= 1<<9)				// EXTI3 ---> PIN9 in NVIC
-#define NVIC_IRQ10_EXTI4_Disable()			(NVIC_ICER0 |= 1<<10)				// EXTI4 ---> PIN10 in NVIC
-#define NVIC_IRQ23_EXTI5_9_Disable()			(NVIC_ICER0 |= 1<<23)				// EXTI5, EXTI6, EXTI7, EXTI8, EXTI9 ---> PIN23 in NVIC
+//-*-*-*-*-*-*-*-*-*-*-*-
+//NVIC IRQ enable/Disable Macros:
+//-*-*-*-*-*-*-*-*-*-*-*
+#define NVIC_IRQ6_EXTI0_EN()			(NVIC_ISER0 |= 1<<6)				// EXTI0 ---> PIN6 in NVIC
+#define NVIC_IRQ7_EXTI1_EN()			(NVIC_ISER0 |= 1<<7)				// EXTI1 ---> PIN7 in NVIC
+#define NVIC_IRQ8_EXTI2_EN()			(NVIC_ISER0 |= 1<<8)				// EXTI2 ---> PIN8 in NVIC
+#define NVIC_IRQ9_EXTI3_EN()			(NVIC_ISER0 |= 1<<9)				// EXTI3 ---> PIN9 in NVIC
+#define NVIC_IRQ10_EXTI4_EN()			(NVIC_ISER0 |= 1<<10)				// EXTI4 ---> PIN10 in NVIC
+#define NVIC_IRQ23_EXTI5_9_EN()			(NVIC_ISER0 |= 1<<23)				// EXTI5, EXTI6, EXTI7, EXTI8, EXTI9 ---> PIN23 in NVIC
 
 // 40 - 32 = 8
-#define NVIC_IRQ40_EXTI10_15_Disable()		(NVIC_ICER1 |= 1<<8)				// EXTI10, EXTI11, EXTI12, EXTI13, EXTI14, EXTI15
+#define NVIC_IRQ40_EXTI10_15_EN()		(NVIC_ISER1 |= 1<<8)				// EXTI10, EXTI11, EXTI12, EXTI13, EXTI14, EXTI15
 																			//  ---> PIN40 in NVIC
+
+#define NVIC_IRQ37_USART1_EN()			(NVIC_ISER1 |= 1<<(USART1_IRQ - 32))// USART1
+#define NVIC_IRQ38_USART2_EN()			(NVIC_ISER1 |= 1<<(USART2_IRQ - 32))// USART2
+#define NVIC_IRQ39_USART3_EN()			(NVIC_ISER1 |= 1<<(USART3_IRQ - 32))// USART3
+
+/* Disable Interrupt Requests */
+
+// We Started From IRQ6 Due To DataSheet
+// ICER : Interrupt Clear Register
+
+#define NVIC_IRQ6_EXTI0_DI()			(NVIC_ICER0 |= 1<<6)				// EXTI0 ---> PIN6 in NVIC
+#define NVIC_IRQ7_EXTI1_DI()			(NVIC_ICER0 |= 1<<7)				// EXTI1 ---> PIN7 in NVIC
+#define NVIC_IRQ8_EXTI2_DI()			(NVIC_ICER0 |= 1<<8)				// EXTI2 ---> PIN8 in NVIC
+#define NVIC_IRQ9_EXTI3_DI()			(NVIC_ICER0 |= 1<<9)				// EXTI3 ---> PIN9 in NVIC
+#define NVIC_IRQ10_EXTI4_DI()			(NVIC_ICER0 |= 1<<10)				// EXTI4 ---> PIN10 in NVIC
+#define NVIC_IRQ23_EXTI5_9_DI()			(NVIC_ICER0 |= 1<<23)				// EXTI5, EXTI6, EXTI7, EXTI8, EXTI9 ---> PIN23 in NVIC
+
+// 40 - 32 = 8
+#define NVIC_IRQ40_EXTI10_15_DI()		(NVIC_ICER1 |= 1<<8)				// EXTI10, EXTI11, EXTI12, EXTI13, EXTI14, EXTI15
 																			//  ---> PIN40 in NVIC
-/*******************  Bit definition for Peripheral register  ******************/
+
+#define NVIC_IRQ37_USART1_DI()			(NVIC_ICER1 |= 1<<(USART1_IRQ - 32))// USART1
+#define NVIC_IRQ38_USART2_DI()			(NVIC_ICER1 |= 1<<(USART2_IRQ - 32))// USART2
+#define NVIC_IRQ39_USART3_DI()			(NVIC_ICER1 |= 1<<(USART3_IRQ - 32))// USART3
+
+/* ================================================================ */
+/* ====================== Generic Macros ========================== */
+/* ================================================================ */
 
 
-#endif /* STM32_L47bRGTb0_Device_Header_H */
+
+/********************************************************/
+/********************************************************/
+/********************************************************/
+/*******************  Bit definition  ********************/
+/********************************************************/
+/********************************************************/
+
+
+#endif /* STM32_F103X6_H_ */
