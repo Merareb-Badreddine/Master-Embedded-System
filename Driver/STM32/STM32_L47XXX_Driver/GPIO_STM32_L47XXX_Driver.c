@@ -2,7 +2,7 @@
  * GPIO_STM32_L47bRGTb0_Driver.c
  *
  *  Created on:
- *      Author: badreddine.merareb
+ *      Author: Merareb.Badreddine
  */
 #include "GPIO_STM32_L47bRGTb0_Driver.h"
 /*
@@ -115,7 +115,7 @@ void MCAL_GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_PINConfig_t* PinConfig)
 {
 
 
-	volatile uint32_t *Config_register = (Get_Position(PinConfig->GPIO_pinNumber) < 16) ? &GPIOx->AFRL : &GPIOx->AFRH;
+	volatile uint32_t *Config_register = (Get_Position(PinConfig->GPIO_pinNumber) < 16) ? &GPIOx->AFR[0] : &GPIOx->AFR[1];
 
 
 	//clears the mode bits for the pin, preparing it for a new mode configuration.
@@ -200,11 +200,11 @@ void MCAL_GPIO_DeInit(GPIO_TypeDef *GPIOx ){
 	    RCC->AHB2RSTR |= (1 << 4);   // Enable reset for GPIOE (bit 4)
 	    RCC->AHB2RSTR &= ~(1 << 4);  // Stop reset for GPIOE (bit 4)
 	}
-	else if (GPIOx == GPIOH)
-	{
-	    RCC->AHB2RSTR |= (1 << 7);   // Enable reset for GPIOH (bit 7)
-	    RCC->AHB2RSTR &= ~(1 << 7);  // Stop reset for GPIOH (bit 7)
-	}
+	//else if (GPIOx == GPIOH)
+	//{
+	   // RCC->AHB2RSTR |= (1 << 7);   // Enable reset for GPIOH (bit 7)
+	    //RCC->AHB2RSTR &= ~(1 << 7);  // Stop reset for GPIOH (bit 7)
+	//}
 }
 
 
@@ -302,10 +302,4 @@ void MCAL_GPIO_TogglePin		(GPIO_TypeDef *GPIOx , uint16_t PinNumber)
 {
 	GPIOx->ODR ^= (PinNumber);
 }
-
-
-
-
-
-
 
