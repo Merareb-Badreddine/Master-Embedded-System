@@ -6,8 +6,8 @@
  *      Author: Merareb.Badreddine */
 
 
-#ifndef STM32_L47bRGTb0_Device_Header.h
-#define STM32_L47bRGTb0_Device_Header.h
+#ifndef STM32_L47bRGTb0_Device_Header_H_
+#define STM32_L47bRGTb0_Device_Header_H_
 
 //-----------------------------
 //Includes
@@ -15,7 +15,7 @@
 typedef unsigned char    uint8_t;
 typedef unsigned short   uint16_t;
 typedef unsigned int     uint32_t;
-
+#define NULL ((void *)0)
 //-----------------------------
 //Base addresses for Memories
 //-----------------------------
@@ -272,9 +272,9 @@ typedef struct
 #define EXTI                ((EXTI_TypeDef *)EXTI_BASE)
 
 
-#define USART1		       ((USART_Typedef *)USART1_BASE)
-#define USART2		       ((USART_Typedef *)USART2_BASE)
-#define USART3		       ((USART_Typedef *)USART3_BASE)
+#define USART1		       ((USART_TypeDef *)USART1_BASE)
+#define USART2		       ((USART_TypeDef *)USART2_BASE)
+#define USART3		       ((USART_TypeDef *)USART3_BASE)
 
 #define Flach_R            ((Flash_TypeDef *)Flash_Registers)
 
@@ -391,4 +391,4 @@ typedef struct
 //******************************************************
 
 
-#endif // STM32_L47bRGTb0_Device_Header.h
+#endif // STM32_L47bRGTb0_Device_Headerç_h_
