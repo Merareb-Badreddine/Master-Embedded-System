@@ -21,11 +21,11 @@ typedef unsigned int     uint32_t;
 //-----------------------------
 #define FLASH_BASE            					        0x08000000UL
 #define System_Memory_BASE            					0x1FFFF000UL
-#define SRAM1_BASE            						    0x20000000UL
+#define SRAM1_BASE            						0x20000000UL
 
 #define Peripherals_BASE            					0x40000000UL
 
-#define Cortex_M3_Internal_Peripherals_BASE            	0xE0000000UL
+#define Cortex_M3_Internal_Peripherals_BASE                     	0xE0000000UL
 //NVIC register map
 
 
@@ -46,6 +46,9 @@ typedef unsigned int     uint32_t;
 
 #define USART2_BASE         (APB1_BUS_BASE + 0x4400)
 #define USART3_BASE         (APB1_BUS_BASE + 0x4800)
+
+#define TIM6_BASE           (APB1_BUS_BASE + 0x1000UL)
+#define TIM7_BASE           (APB1_BUS_BASE + 0x1400UL)
 
 //-----------------------------
 //Base addresses for AHB Peripherals
@@ -223,6 +226,25 @@ typedef struct
     volatile uint32_t CFGR2;        // SYSCFG configuration register 2
 } SYSCFG_TypeDef;
 
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register: Basic timer Tim6/Tim7
+//-*-*-*-*-*-*-*-*-*-*-*
+typedef struct
+{
+  volatile uint32_t CR1;       // Control Register 1
+  volatile uint32_t CR2;       // Control Register 2
+  volatile uint32_t RESERVED0; // Reserved
+  volatile uint32_t DIER;      // DMA/Interrupt Enable Register
+  volatile uint32_t SR;        // Status Register
+  volatile uint32_t EGR;       // Event Generation Register
+  volatile uint32_t RESERVED1; // Reserved
+  volatile uint32_t RESERVED2; // Reserved
+  volatile uint32_t CNT;       // Counter Register
+  volatile uint32_t PSC;       // Prescaler Register
+  volatile uint32_t ARR;       // Auto-Reload Register
+} TIM_TypeDef;
+
 //-----------------------------------
 // Peripheral Register : Flash
 //-----------------------------------
@@ -278,6 +300,9 @@ typedef struct
 
 #define Flach_R            ((Flash_TypeDef *)Flash_Registers)
 
+#define TIM6               ((TIM_TypeDef *)TIM6_BASE)
+#define TIM7               ((TIM_TypeDef *)TIM7_BASE)
+
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -300,7 +325,9 @@ typedef struct
 #define RCC_USART2_CLK_EN()  (RCC->APB1ENR1 |= (1 << 17)) // USART2 is on APB1ENR1
 #define RCC_USART3_CLK_EN()  (RCC->APB1ENR1 |= (1 << 18)) // USART3 is on APB1ENR1
 
-
+// Basic Timers
+#define RCC_TIM6_CLK_EN()  (RCC->APB1ENR1 |= (1 << 4))
+#define RCC_TIM7_CLK_EN()  (RCC->APB1ENR1 |= (1 << 5))
 // Disable clock
 
 #define RCC_USART1_CLK_DI()	(RCC->APB2RSTR  |= 1 << 14) //USART1 disable is in bit 14
@@ -338,10 +365,21 @@ typedef struct
 #define USART2_IRQ		38
 #define USART3_IRQ		39
 
+// Basic Timers
+
+#define TIM6_DAC_IRQ   54
+#define TIM7_IRQ       55
+
+
+
 
 //-*-*-*-*-*-*-*-*-*-*-*-
 //NVIC IRQ enable/Disable Macros:
 //-*-*-*-*-*-*-*-*-*-*-*
+
+
+// Enable Interrupt Requests
+
 #define NVIC_IRQ6_EXTI0_EN()			(NVIC_ISER0 |= 1<<6)				// EXTI0 ---> PIN6 in NVIC
 #define NVIC_IRQ7_EXTI1_EN()			(NVIC_ISER0 |= 1<<7)				// EXTI1 ---> PIN7 in NVIC
 #define NVIC_IRQ8_EXTI2_EN()			(NVIC_ISER0 |= 1<<8)				// EXTI2 ---> PIN8 in NVIC
@@ -351,16 +389,17 @@ typedef struct
 
 // 40 - 32 = 8
 #define NVIC_IRQ40_EXTI10_15_EN()		(NVIC_ISER1 |= 1<<8)				// EXTI10, EXTI11, EXTI12, EXTI13, EXTI14, EXTI15
-																			//  ---> PIN40 in NVIC
+																		    //  ---> PIN40 in NVIC
 
 #define NVIC_IRQ37_USART1_EN()			(NVIC_ISER1 |= 1<<(USART1_IRQ - 32))// USART1
 #define NVIC_IRQ38_USART2_EN()			(NVIC_ISER1 |= 1<<(USART2_IRQ - 32))// USART2
 #define NVIC_IRQ39_USART3_EN()			(NVIC_ISER1 |= 1<<(USART3_IRQ - 32))// USART3
 
+#define NVIC_IRQ54_TIM6_EN()           (NVIC_ISER1 |= (1 << (TIM6_DAC_IRQ - 32)))    // TIM6_DAC  ---> PIN54 in NVIC
+#define NVIC_IRQ55_TIM7_EN()           (NVIC_ISER1 |= (1 << (TIM7_IRQ - 32)))        // TIM7      ---> PIN55 in NVIC
+
 // Disable Interrupt Requests
 
-// We Started From IRQ6 Due To DataSheet
-// ICER : Interrupt Clear Register
 
 #define NVIC_IRQ6_EXTI0_DI()			(NVIC_ICER0 |= 1<<6)				// EXTI0 ---> PIN6 in NVIC
 #define NVIC_IRQ7_EXTI1_DI()			(NVIC_ICER0 |= 1<<7)				// EXTI1 ---> PIN7 in NVIC
@@ -369,13 +408,19 @@ typedef struct
 #define NVIC_IRQ10_EXTI4_DI()			(NVIC_ICER0 |= 1<<10)				// EXTI4 ---> PIN10 in NVIC
 #define NVIC_IRQ23_EXTI5_9_DI()			(NVIC_ICER0 |= 1<<23)				// EXTI5, EXTI6, EXTI7, EXTI8, EXTI9 ---> PIN23 in NVIC
 
-// 40 - 32 = 8
-#define NVIC_IRQ40_EXTI10_15_DI()		(NVIC_ICER1 |= 1<<8)				// EXTI10, EXTI11, EXTI12, EXTI13, EXTI14, EXTI15
-																			//  ---> PIN40 in NVIC
 
-#define NVIC_IRQ37_USART1_DI()			(NVIC_ICER1 |= 1<<(USART1_IRQ - 32))// USART1
-#define NVIC_IRQ38_USART2_DI()			(NVIC_ICER1 |= 1<<(USART2_IRQ - 32))// USART2
-#define NVIC_IRQ39_USART3_DI()			(NVIC_ICER1 |= 1<<(USART3_IRQ - 32))// USART3
+// 40 - 32 = 8
+#define NVIC_IRQ40_EXTI10_15_DI()		(NVIC_ICER1 |= 1<<8)				  // EXTI10, EXTI11, EXTI12, EXTI13, EXTI14, EXTI15
+																			  //  ---> PIN40 in NVIC
+
+#define NVIC_IRQ37_USART1_DI()			(NVIC_ICER1 |= 1<<(USART1_IRQ - 32))  // USART1
+#define NVIC_IRQ38_USART2_DI()			(NVIC_ICER1 |= 1<<(USART2_IRQ - 32))  // USART2
+#define NVIC_IRQ39_USART3_DI()			(NVIC_ICER1 |= 1<<(USART3_IRQ - 32))  // USART3
+
+
+#define NVIC_IRQ54_TIM6_DI()           (NVIC_ICER1 |= (1 << (TIM6_DAC_IRQ - 32))) // TIM6_DAC ---> PIN54 in NVIC
+#define NVIC_IRQ55_TIM7_DI()           (NVIC_ICER1 |= (1 << (TIM7_IRQ - 32)))     // TIM7      ---> PIN55 in NVIC
+
 
 // ================================================================
 // ====================== Generic Macros ==========================
@@ -383,12 +428,12 @@ typedef struct
 
 
 
-//******************************************************
-//******************************************************
-//******************************************************
-//******************  Bit definition  *******************
-//******************************************************
-//******************************************************
+//*****************************************************************
+//*****************************************************************
+//*****************************************************************
+//******************  Bit definition  *****************************
+//*****************************************************************
+//****************************************************************
 
 
-#endif // STM32_L47bRGTb0_Device_Headerç_h_
+#endif // STM32_L47bRGTb0_Device_Header_H_
