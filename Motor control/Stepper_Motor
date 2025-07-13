@@ -1,0 +1,129 @@
+// ========== Register Definitions ==========
+#define RCC_AHB2ENR     (*((volatile unsigned int *)0x4002104C))
+#define RCC_APB1ENR1    (*((volatile unsigned int *)0x40021058))
+
+#define GPIOA_MODER     (*((volatile unsigned int *)0x48000000))
+#define GPIOA_OTYPER    (*((volatile unsigned int *)0x48000004))
+#define GPIOA_OSPEEDR   (*((volatile unsigned int *)0x48000008))
+#define GPIOA_PUPDR     (*((volatile unsigned int *)0x4800000C))
+#define GPIOA_ODR       (*((volatile unsigned int *)0x48000014))
+
+#define TIM6_CR1        (*((volatile unsigned int *)0x40001000))
+#define TIM6_CNT        (*((volatile unsigned int *)0x40001024))
+#define TIM6_PSC        (*((volatile unsigned int *)0x40001028))
+#define TIM6_ARR        (*((volatile unsigned int *)0x4000102C))
+#define TIM6_SR         (*((volatile unsigned int *)0x40001010))
+
+// ========== Globals ==========
+volatile unsigned char step = 0;
+volatile unsigned char direction = 0; // 0 = forward, 1 = backward
+
+// ========== Delay using TIM6 ==========
+void TIM6_Delay_us(unsigned int us)
+{
+    if (us == 0) return;
+
+    RCC_APB1ENR1 |= (1 << 4);      // Enable TIM6 clock
+    TIM6_CR1 = 0;
+    TIM6_CNT = 0;
+    TIM6_PSC = 16 - 1;             // 16 MHz / 16 = 1 MHz = 1 µs
+    TIM6_ARR = us - 1;
+    TIM6_SR &= ~(1 << 0);          // Clear update flag
+    TIM6_CR1 |= (1 << 0);          // Enable TIM6
+
+    while ((TIM6_SR & (1 << 0)) == 0);  // Wait for overflow
+
+    TIM6_CR1 &= ~(1 << 0);         // Stop timer
+    TIM6_SR &= ~(1 << 0);          // Clear flag
+}
+
+void delay_ms(unsigned int ms)
+{
+    while (ms--) TIM6_Delay_us(1000);
+}
+
+// ========== Init GPIOA Pins PA0–PA3 for Stepper ==========
+void GPIOA_Init_Stepper(void)
+{
+    RCC_AHB2ENR |= (1 << 0);      // Enable GPIOA clock
+
+    GPIOA_MODER &= ~(0xFF);       // Clear PA0–PA3 mode
+    GPIOA_MODER |=  (0x55);       // Set PA0–PA3 to output
+
+    GPIOA_OTYPER &= ~(0x0F);      // Push-pull
+    GPIOA_OSPEEDR |=  (0xFF);     // High speed
+    GPIOA_PUPDR   &= ~(0xFF);     // No pull-up/down
+}
+
+// ========== Init PA5 for LED ==========
+void LED_Init(void)
+{
+    RCC_AHB2ENR |= (1 << 0);              // GPIOA clock already enabled
+
+    GPIOA_MODER &= ~(0x3 << (5 * 2));     // Clear PA5 mode
+    GPIOA_MODER |=  (0x1 << (5 * 2));     // Set PA5 as output
+
+    GPIOA_OTYPER &= ~(1 << 5);            // Push-pull
+    GPIOA_OSPEEDR |=  (0x3 << (5 * 2));   // High speed
+    GPIOA_PUPDR   &= ~(0x3 << (5 * 2));   // No pull-up/down
+}
+
+void LED_Toggle(void)
+{
+    GPIOA_ODR ^= (1 << 5); // Toggle PA5
+}
+
+// ========== Stepper Output ==========
+void Stepper_Output_Step(unsigned char s)
+{
+    GPIOA_ODR &= ~(0x0F); // Clear PA0–PA3
+
+    switch(s)
+    {
+        case 0: GPIOA_ODR |= 0x09; break; // A+ B− (PA0, PA3)
+        case 1: GPIOA_ODR |= 0x05; break; // A+ B+ (PA0, PA2)
+        case 2: GPIOA_ODR |= 0x06; break; // A− B+ (PA1, PA2)
+        case 3: GPIOA_ODR |= 0x0A; break; // A− B− (PA1, PA3)
+    }
+}
+
+// ========== Direction Control ==========
+void Dumbre_Forward(void)  { direction = 0; }
+void Dumbre_Backward(void) { direction = 1; }
+
+// ========== Move by Degree ==========
+void Dumbre_Control_Degree(int degree)
+{
+    int Nstep = (degree * 1800) / 90; // 0.05°/step
+
+    for (int i = 0; i < Nstep; i++)
+    {
+        if (direction == 0)
+            step = (step + 1) % 4;
+        else
+            step = (step + 3) % 4;
+
+        Stepper_Output_Step(step);
+        TIM6_Delay_us(3333); 
+    }
+}
+
+// ========== MAIN ==========
+int main(void)
+{
+    GPIOA_Init_Stepper();
+    LED_Init();
+
+    while (1)
+    {
+        Dumbre_Forward();
+        Dumbre_Control_Degree(90); 
+        LED_Toggle();
+        delay_ms(1000);
+
+        Dumbre_Backward();
+        Dumbre_Control_Degree(90); 
+        LED_Toggle();
+        delay_ms(1000);
+    }
+}
