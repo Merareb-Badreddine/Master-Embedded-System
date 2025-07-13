@@ -1,4 +1,4 @@
-// ========== Register Definitions ==========
+كي// ========== Register Definitions ==========
 #define RCC_AHB2ENR     (*((volatile unsigned int *)0x4002104C))
 #define RCC_APB1ENR1    (*((volatile unsigned int *)0x40021058))
 
@@ -98,12 +98,14 @@ void Dumbre_Control_Degree(int degree)
 
     for (int i = 0; i < N_Of_Step; i++)
     {
+
+        Stepper_Output_Step(step);
         if (direction == 0)
             step = (step + 1) % 4;
         else
             step = (step + 3) % 4;
 
-        Stepper_Output_Step(step);
+        
         TIM6_Delay_us(3333); 
     }
 }
