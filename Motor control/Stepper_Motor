@@ -94,9 +94,9 @@ void Dumbre_Backward(void) { direction = 1; }
 // ========== Move by Degree ==========
 void Dumbre_Control_Degree(int degree)
 {
-    int Nstep = (degree * 1800) / 90; // 0.05°/step
+    int N_Of_Step = (degree * 1800) / 90; // 0.05°/step
 
-    for (int i = 0; i < Nstep; i++)
+    for (int i = 0; i < N_Of_Step; i++)
     {
         if (direction == 0)
             step = (step + 1) % 4;
