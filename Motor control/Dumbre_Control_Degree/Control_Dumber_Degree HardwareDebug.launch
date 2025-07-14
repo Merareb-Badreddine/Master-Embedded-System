@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.renesas.cdt.launch.dsf.gdbremote.launchConfigurationType">
+    <booleanAttribute key=".le" value="true"/>
+    <booleanAttribute key=".setStepMode" value="false"/>
+    <intAttribute key="com.renesas.cdt.core.connectionTimeout" value="30"/>
+    <stringAttribute key="com.renesas.cdt.core.initCommands" value=""/>
+    <stringAttribute key="com.renesas.cdt.core.ipAddress" value="localhost"/>
+    <stringAttribute key="com.renesas.cdt.core.jtagDeviceId" value="com.renesas.hardwaredebug.rl78.e1"/>
+    <listAttribute key="com.renesas.cdt.core.listGDBExe"/>
+    <listAttribute key="com.renesas.cdt.core.listGDBLaunchName">
+        <listEntry value="main"/>
+    </listAttribute>
+    <listAttribute key="com.renesas.cdt.core.listGDBPort">
+        <listEntry value="61234"/>
+    </listAttribute>
+    <booleanAttribute key="com.renesas.cdt.core.loadImage" value="true"/>
+    <stringAttribute key="com.renesas.cdt.core.optionInitCommands" value=""/>
+    <intAttribute key="com.renesas.cdt.core.portNumber" value="61234"/>
+    <stringAttribute key="com.renesas.cdt.core.runCommands" value=""/>
+    <stringAttribute key="com.renesas.cdt.core.secondGDBExe" value="green_dsp-elf-gdb"/>
+    <intAttribute key="com.renesas.cdt.core.secondGdbPortNumber" value="61237"/>
+    <stringAttribute key="com.renesas.cdt.core.serverParam" value="-g E1  -t R5F104GF -uConnectionTimeout= 30 -umFreq= &quot;0&quot; -usFreq= &quot;0&quot; -umClock= &quot;1&quot; -w &quot;1&quot; -usupplyVoltage= &quot;0&quot; -ucommMethod= &quot;0&quot; -usecurityID= &quot;00000000000000000000&quot; -usecurityIdSize &quot;10&quot; -upermitFlash= 1 -uuseWideVoltageMode= 1 -ueraseRom= 1 -uresetOnReload= 1 -ustopTimerEmu= 0 -ustopSerialEmu= 0 -umaskInternalResetSignal= 0 -umaskTargetResetSignal= 0 -n 0 -uverifyOnWritingMemory= 1 -uAllowRRMDMM= 0 -uRelayBreak= 0"/>
+    <booleanAttribute key="com.renesas.cdt.core.setResume" value="true"/>
+    <booleanAttribute key="com.renesas.cdt.core.setStopAt" value="true"/>
+    <stringAttribute key="com.renesas.cdt.core.stopAt" value="main"/>
+    <stringAttribute key="com.renesas.cdt.core.targetDevice" value="R5F104GF"/>
+    <booleanAttribute key="com.renesas.cdt.core.useRemoteTarget" value="true"/>
+    <stringAttribute key="com.renesas.cdt.launch.dsf.IO_MAP" value="${support_area_loc}"/>
+    <booleanAttribute key="com.renesas.cdt.launch.dsf.USE_DEFAULT_IO_MAP" value="true"/>
+    <listAttribute key="com.renesas.cdt.launch.dsf.downloadImages">
+        <listEntry value="|true|true|true|0|true|No core|INTERNAL_MEMORY||false"/>
+    </listAttribute>
+    <booleanAttribute key="com.renesas.cdt.launch.dsf.downloadImagesUpgradedV30" value="true"/>
+    <stringAttribute key="com.renesas.cdt.launch.dsf.launchSeqType" value="com.renesas.cdt.launch.dsf.launchSequence.e2GdbServer"/>
+    <stringAttribute key="com.renesas.cdt.launch.dsf.serverPath" value="${renesas.support.targetLoc:rl78-debug}\e2-server-gdb"/>
+    <booleanAttribute key="com.renesas.hardwaredebug.e1.rl78.TreeDebugToolSettings.resetAfterReload" value="true"/>
+    <booleanAttribute key="com.renesas.hardwaredebug.e1rl78-uRelayBreak=" value="false"/>
+    <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.allowRRMDMM" value="false"/>
+    <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.enable.hot.plug" value="false"/>
+    <stringAttribute key="com.renesas.hardwaredebug.e1rl78.security.id" value="00000000000000000000"/>
+    <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.selfProgramming" value="false"/>
+    <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.stopSerialEmu" value="false"/>
+    <booleanAttribute key="com.renesas.hardwaredebug.e1rl78.stopTimerEmu" value="false"/>
+    <booleanAttribute key="com.renesas.hardwaredebug.timemeasurement" value="true"/>
+    <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.useProjBinaryForImage" value="true"/>
+    <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.useProjBinaryForSymbols" value="true"/>
+    <stringAttribute key="org.eclipse.cdt.dsf.gdb.DEBUG_NAME" value="rl78-elf-gdb"/>
+    <booleanAttribute key="org.eclipse.cdt.dsf.gdb.NON_STOP" value="true"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="HardwareDebug/Control_Dumber_Degree.elf"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="Control_Dumber_Degree"/>
+    <booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="true"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value="com.renesas.cdt.managedbuild.gcc.rl78.configuration.debug.update.110920108"/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/Control_Dumber_Degree"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="4"/>
+    </listAttribute>
+    <booleanAttribute key="org.eclipse.debug.ui.ATTR_LAUNCH_IN_BACKGROUND" value="false"/>
+</launchConfiguration>

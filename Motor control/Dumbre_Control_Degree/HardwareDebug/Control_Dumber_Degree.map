@@ -1,0 +1,357 @@
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 ./src/r_cg_cgc.o
+ .data          0x0000000000000000        0x0 ./src/r_cg_cgc.o
+ .bss           0x0000000000000000        0x0 ./src/r_cg_cgc.o
+ .text          0x0000000000000000        0x0 ./src/r_cg_cgc_user.o
+ .data          0x0000000000000000        0x0 ./src/r_cg_cgc_user.o
+ .bss           0x0000000000000000        0x0 ./src/r_cg_cgc_user.o
+ .text          0x0000000000000000        0x0 ./src/r_cg_port.o
+ .data          0x0000000000000000        0x0 ./src/r_cg_port.o
+ .bss           0x0000000000000000        0x0 ./src/r_cg_port.o
+ .text          0x0000000000000000        0x0 ./src/r_cg_port_user.o
+ .data          0x0000000000000000        0x0 ./src/r_cg_port_user.o
+ .bss           0x0000000000000000        0x0 ./src/r_cg_port_user.o
+ .debug_info    0x0000000000000000       0x48 ./src/r_cg_port_user.o
+ .debug_abbrev  0x0000000000000000       0x1b ./src/r_cg_port_user.o
+ .debug_aranges
+                0x0000000000000000       0x18 ./src/r_cg_port_user.o
+ .debug_line    0x0000000000000000       0x1d ./src/r_cg_port_user.o
+ .debug_str     0x0000000000000000      0x1ad ./src/r_cg_port_user.o
+ .comment       0x0000000000000000       0xa1 ./src/r_cg_port_user.o
+ .text          0x0000000000000000        0x0 ./src/r_cg_timer.o
+ .data          0x0000000000000000        0x0 ./src/r_cg_timer.o
+ .bss           0x0000000000000000        0x0 ./src/r_cg_timer.o
+ .text.R_TAU0_Channel0_Stop
+                0x0000000000000000       0x16 ./src/r_cg_timer.o
+ .text          0x0000000000000000        0x0 ./src/r_cg_timer_user.o
+ .data          0x0000000000000000        0x0 ./src/r_cg_timer_user.o
+ .bss           0x0000000000000000        0x0 ./src/r_cg_timer_user.o
+ .text          0x0000000000000000        0x0 ./src/r_cg_vector_table.o
+ .data          0x0000000000000000        0x0 ./src/r_cg_vector_table.o
+ .bss           0x0000000000000000        0x0 ./src/r_cg_vector_table.o
+ .text          0x0000000000000000        0x0 ./src/r_hardware_setup.o
+ .data          0x0000000000000000        0x0 ./src/r_hardware_setup.o
+ .bss           0x0000000000000000        0x0 ./src/r_hardware_setup.o
+ .text          0x0000000000000000        0x0 ./src/r_main.o
+ .data          0x0000000000000000        0x0 ./src/r_main.o
+ .bss           0x0000000000000000        0x0 ./src/r_main.o
+ .data          0x0000000000000000        0x0 ./src/r_reset_program.o
+ .bss           0x0000000000000000        0x0 ./src/r_reset_program.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+VEC              0x0000000000000000 0x0000000000000004
+IVEC             0x0000000000000004 0x00000000000000bc
+OPT              0x00000000000000c0 0x0000000000000004
+SEC_ID           0x00000000000000c4 0x000000000000000a
+OCDSTAD          0x00000000000000ce 0x000000000000000a
+OCDROM           0x0000000000017e00 0x0000000000000200
+ROM              0x00000000000000d8 0x0000000000017d28
+MIRROR           0x00000000000f3000 0x0000000000009f00
+RAM              0x00000000000fcf00 0x0000000000003000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD ./src/r_cg_cgc.o
+LOAD ./src/r_cg_cgc_user.o
+LOAD ./src/r_cg_port.o
+LOAD ./src/r_cg_port_user.o
+LOAD ./src/r_cg_timer.o
+LOAD ./src/r_cg_timer_user.o
+LOAD ./src/r_cg_vector_table.o
+LOAD ./src/r_hardware_setup.o
+LOAD ./src/r_main.o
+LOAD ./src/r_reset_program.o
+START GROUP
+LOAD c:/users/badreddine.merareb/appdata/roaming/gcc for renesas rl78 4.9.2.202201-gnurl78-elf/rl78-elf/rl78-elf/bin/../lib/gcc/rl78-elf/4.9.2.202201-GNURL78/../../../../rl78-elf/lib/g14\libm.a
+LOAD c:/users/badreddine.merareb/appdata/roaming/gcc for renesas rl78 4.9.2.202201-gnurl78-elf/rl78-elf/rl78-elf/bin/../lib/gcc/rl78-elf/4.9.2.202201-GNURL78/../../../../rl78-elf/lib/g14\libc.a
+LOAD c:/users/badreddine.merareb/appdata/roaming/gcc for renesas rl78 4.9.2.202201-gnurl78-elf/rl78-elf/rl78-elf/bin/../lib/gcc/rl78-elf/4.9.2.202201-GNURL78/g14\libgcc.a
+END GROUP
+LOAD c:/users/badreddine.merareb/appdata/roaming/gcc for renesas rl78 4.9.2.202201-gnurl78-elf/rl78-elf/rl78-elf/bin/../lib/gcc/rl78-elf/4.9.2.202201-GNURL78/g14\libgcc.a
+START GROUP
+LOAD c:/users/badreddine.merareb/appdata/roaming/gcc for renesas rl78 4.9.2.202201-gnurl78-elf/rl78-elf/rl78-elf/bin/../lib/gcc/rl78-elf/4.9.2.202201-GNURL78/../../../../rl78-elf/lib/g14\libc.a
+LOAD c:/users/badreddine.merareb/appdata/roaming/gcc for renesas rl78 4.9.2.202201-gnurl78-elf/rl78-elf/rl78-elf/bin/../lib/gcc/rl78-elf/4.9.2.202201-GNURL78/../../../../rl78-elf/lib/g14\libsim.a
+END GROUP
+LOAD c:/users/badreddine.merareb/appdata/roaming/gcc for renesas rl78 4.9.2.202201-gnurl78-elf/rl78-elf/rl78-elf/bin/../lib/gcc/rl78-elf/4.9.2.202201-GNURL78/g14\libgcc.a
+
+.vec            0x0000000000000000        0x4
+ *(.vec)
+ .vec           0x0000000000000000        0x4 ./src/r_cg_vector_table.o
+                0x0000000000000000                HardwareVectors
+
+.vects          0x0000000000000004       0x7c
+ *(.vects)
+ .vects         0x0000000000000004       0x7c ./src/r_cg_vector_table.o
+                0x0000000000000004                Vectors
+
+.option_bytes   0x00000000000000c0        0x4
+ *(.option_bytes)
+ .option_bytes  0x00000000000000c0        0x4 ./src/r_cg_vector_table.o
+                0x00000000000000c0                Option_Bytes
+
+.security_id    0x00000000000000c4        0xa
+ *(.security_id)
+ .security_id   0x00000000000000c4        0xa ./src/r_cg_vector_table.o
+                0x00000000000000c4                Security_Id
+
+.lowtext        0x00000000000000d8        0x0
+ *(.plt)
+ .plt           0x00000000000000d8        0x0 ./src/r_cg_timer_user.o
+ *(.lowtext)
+                0x00000000000000d8                . = ALIGN (0x2)
+
+.tors           0x00000000000000d8        0x0
+                0x00000000000000d8                __CTOR_LIST__ = .
+                0x00000000000000d8                . = ALIGN (0x2)
+                0x00000000000000d8                ___ctors = .
+ *(.ctors)
+                0x00000000000000d8                ___ctors_end = .
+                0x00000000000000d8                __CTOR_END__ = .
+                0x00000000000000d8                __DTOR_LIST__ = .
+                0x00000000000000d8                ___dtors = .
+ *(.dtors)
+                0x00000000000000d8                ___dtors_end = .
+                0x00000000000000d8                __DTOR_END__ = .
+                0x00000000000000d8                . = ALIGN (0x2)
+                0x00000000000000d8                _mdata = .
+
+.text           0x00000000000000d8      0x30c
+ *(.text)
+ .text          0x00000000000000d8       0x62 ./src/r_reset_program.o
+                0x00000000000000da                _rl78_fini
+                0x00000000000000dc                PowerON_Reset
+ *(.text.*)
+ .text.R_CGC_Create
+                0x000000000000013a       0x1d ./src/r_cg_cgc.o
+                0x000000000000013a                R_CGC_Create
+ .text.R_CGC_Get_ResetSource
+                0x0000000000000157        0x3 ./src/r_cg_cgc_user.o
+                0x0000000000000157                R_CGC_Get_ResetSource
+ .text.R_PORT_Create
+                0x000000000000015a        0xc ./src/r_cg_port.o
+                0x000000000000015a                R_PORT_Create
+ .text.R_TAU0_Create
+                0x0000000000000166       0x6a ./src/r_cg_timer.o
+                0x0000000000000166                R_TAU0_Create
+ .text.R_TAU0_Channel0_Start
+                0x00000000000001d0       0x16 ./src/r_cg_timer.o
+                0x00000000000001d0                R_TAU0_Channel0_Start
+ .text.r_tau0_channel0_interrupt
+                0x00000000000001e6       0x88 ./src/r_cg_timer_user.o
+                0x00000000000001e6                r_tau0_channel0_interrupt
+ .text.R_Dummy  0x000000000000026e       0x12 ./src/r_cg_vector_table.o
+                0x000000000000026e                R_Dummy
+ .text.R_Systeminit
+                0x0000000000000280       0x1a ./src/r_hardware_setup.o
+                0x0000000000000280                R_Systeminit
+ .text.HardwareSetup
+                0x000000000000029a        0xc ./src/r_hardware_setup.o
+                0x000000000000029a                HardwareSetup
+ .text.R_MAIN_UserInit
+                0x00000000000002a6        0x8 ./src/r_main.o
+                0x00000000000002a6                R_MAIN_UserInit
+ .text.Dumbre_Control_Degree
+                0x00000000000002ae       0x6d ./src/r_main.o
+                0x00000000000002ae                Dumbre_Control_Degree
+ .text.main     0x000000000000031b       0x50 ./src/r_main.o
+                0x000000000000031b                main
+ .text.set_step
+                0x000000000000036b       0x78 ./src/r_main.o
+                0x000000000000036b                set_step
+                0x00000000000003e3                etext = .
+                0x00000000000003e4                . = ALIGN (0x2)
+ *fill*         0x00000000000003e3        0x1 
+                0x0000000000000000                PROVIDE (__rl78_abs__, 0x0)
+
+.init
+ *(.init)
+
+.fini
+ *(.fini)
+
+.got
+ *(.got)
+ *(.got.plt)
+                0x0000000000003000                PROVIDE (__mirror, 0x3000)
+                0x000000000000cf00                PROVIDE (__mirror_end, (__mirror + 0x9f00))
+                0x0000000000003000                PROVIDE (__rodata, ADDR (.rodata))
+
+.rodata         0x0000000000003000        0x0
+                0x0000000000003000                . = ALIGN (0x2)
+ *(.rodata)
+ *(.rodata.*)
+                0x0000000000003000                _erodata = .
+                0x0000000000000001                ASSERT (! ((SIZEOF (.rodata) > (__mirror_end - __mirror))), Error: Too much const data-the size exceeds the mirror area. Please change some of them from 'const' to 'const __far' and uncheck 'Data sections (-fdata-sections)' of optimaize option.)
+                0x0000000000000001                ASSERT (! ((((((SIZEOF (.rodata) <= (__mirror_end - __mirror)) && (SIZEOF (.rodata) > 0x0)) && (ABSOLUTE (__rodata) >= __mirror_end)) && (ABSOLUTE (.) > __mirror_end)) && (ADDR (.text) < __rodata))), Error: No room left for const data- the start address exceeds the mirror area. Please move the .text section from lower address to higher address.)
+                0x0000000000000001                ASSERT (! ((((((SIZEOF (.rodata) <= (__mirror_end - __mirror)) && (SIZEOF (.rodata) > 0x0)) && (ABSOLUTE (__rodata) >= __mirror_end)) && (ABSOLUTE (.) > __mirror_end)) && (__rodata < ADDR (.text)))), Error: No room left for const data- the start address exceeds the mirror area. Please check the map file.)
+                0x0000000000000001                ASSERT (! ((((((SIZEOF (.rodata) <= (__mirror_end - __mirror)) && (SIZEOF (.rodata) > 0x0)) && (ABSOLUTE (__rodata) < __mirror_end)) && (ABSOLUTE (.) > __mirror_end)) && (ADDR (.text) < __rodata))), Error : No room left for const data-the end address exceeds the mirror area. Please move the .text section from lower address to higher address.)
+                0x0000000000000001                ASSERT (! ((((((SIZEOF (.rodata) <= (__mirror_end - __mirror)) && (SIZEOF (.rodata) > 0x0)) && (ABSOLUTE (__rodata) < __mirror_end)) && (ABSOLUTE (.) > __mirror_end)) && (__rodata < ADDR (.text)))), Error : No room left for const data-the end address exceeds the mirror area. Please check the map file.)
+
+.frodata        0x00000000000003e4        0x0
+                0x00000000000003e4                . = ALIGN (0x2)
+ *(.frodata)
+ *(.frodata.*)
+                0x00000000000003e4                _efrodata = .
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame
+ *(.eh_frame)
+
+.jcr            0x00000000000003e4        0x0
+ *(.jcr)
+                0x00000000000003e4                . = ALIGN (0x2)
+
+.data           0x00000000000fcf00        0x0 load address 0x00000000000000d8
+                0x00000000000fcf00                . = ALIGN (0x2)
+                0x00000000000fcf00                _data = .
+ *(.data)
+ *(.data.*)
+                0x00000000000fcf00                . = ALIGN (0x2)
+                0x00000000000fcf00                _edata = .
+                0x0000000000000000                PROVIDE (__romdatacopysize, SIZEOF (.data))
+
+.bss            0x00000000000fcf00       0x80
+                0x00000000000fcf00                . = ALIGN (0x2)
+                0x00000000000fcf00                _bss = .
+ *(.bss)
+ *(.bss.**)
+ .bss.TOTAL_STEPS_CLOSE
+                0x00000000000fcf00        0x2 ./src/r_main.o
+                0x00000000000fcf00                TOTAL_STEPS_CLOSE
+ .bss.TOTAL_STEPS_OPEN
+                0x00000000000fcf02        0x2 ./src/r_main.o
+                0x00000000000fcf02                TOTAL_STEPS_OPEN
+ .bss.current_degree
+                0x00000000000fcf04        0x2 ./src/r_main.o
+                0x00000000000fcf04                current_degree
+ .bss.motor_direction
+                0x00000000000fcf06        0x1 ./src/r_main.o
+                0x00000000000fcf06                motor_direction
+ *fill*         0x00000000000fcf07        0x1 
+ .bss.step_counter
+                0x00000000000fcf08        0x2 ./src/r_main.o
+                0x00000000000fcf08                step_counter
+                0x00000000000fcf0a                . = ALIGN (0x2)
+ *(COMMON)
+                0x00000000000fcf0a                . = ALIGN (0x2)
+                0x00000000000fcf0a                _ebss = .
+                0x00000000000fcf80                . = ALIGN (0x80)
+ *fill*         0x00000000000fcf0a       0x76 
+                0x00000000000fcf80                _end = .
+                0x0000000000000064                PROVIDE (stack_size, 0x64)
+
+.stack          0x00000000000ffedc        0x0
+                0x00000000000ffedc                _stack = .
+                0x0000000000000001                ASSERT ((_stack > (_end + stack_size)), Error: Too much data - no room left for the stack)
+OUTPUT(Control_Dumber_Degree.elf elf32-rl78)
+
+.debug_frame    0x0000000000000000      0x210
+ .debug_frame   0x0000000000000000       0x24 ./src/r_cg_cgc.o
+ .debug_frame   0x0000000000000024       0x24 ./src/r_cg_cgc_user.o
+ .debug_frame   0x0000000000000048       0x24 ./src/r_cg_port.o
+ .debug_frame   0x000000000000006c       0x44 ./src/r_cg_timer.o
+ .debug_frame   0x00000000000000b0       0x7c ./src/r_cg_timer_user.o
+ .debug_frame   0x000000000000012c       0x54 ./src/r_cg_vector_table.o
+ .debug_frame   0x0000000000000180       0x34 ./src/r_hardware_setup.o
+ .debug_frame   0x00000000000001b4       0x5c ./src/r_main.o
+
+.debug_info     0x0000000000000000      0xad8
+ .debug_info    0x0000000000000000      0x133 ./src/r_cg_cgc.o
+ .debug_info    0x0000000000000133       0x7a ./src/r_cg_cgc_user.o
+ .debug_info    0x00000000000001ad      0x155 ./src/r_cg_port.o
+ .debug_info    0x0000000000000302      0x216 ./src/r_cg_timer.o
+ .debug_info    0x0000000000000518       0xdd ./src/r_cg_timer_user.o
+ .debug_info    0x00000000000005f5      0x108 ./src/r_cg_vector_table.o
+ .debug_info    0x00000000000006fd       0xd1 ./src/r_hardware_setup.o
+ .debug_info    0x00000000000007ce      0x264 ./src/r_main.o
+ .debug_info    0x0000000000000a32       0xa6 ./src/r_reset_program.o
+
+.debug_abbrev   0x0000000000000000      0x4e6
+ .debug_abbrev  0x0000000000000000       0x82 ./src/r_cg_cgc.o
+ .debug_abbrev  0x0000000000000082       0x53 ./src/r_cg_cgc_user.o
+ .debug_abbrev  0x00000000000000d5       0x8f ./src/r_cg_port.o
+ .debug_abbrev  0x0000000000000164       0xb8 ./src/r_cg_timer.o
+ .debug_abbrev  0x000000000000021c       0x8c ./src/r_cg_timer_user.o
+ .debug_abbrev  0x00000000000002a8       0x7c ./src/r_cg_vector_table.o
+ .debug_abbrev  0x0000000000000324       0x8d ./src/r_hardware_setup.o
+ .debug_abbrev  0x00000000000003b1      0x121 ./src/r_main.o
+ .debug_abbrev  0x00000000000004d2       0x14 ./src/r_reset_program.o
+
+.debug_aranges  0x0000000000000000      0x150
+ .debug_aranges
+                0x0000000000000000       0x20 ./src/r_cg_cgc.o
+ .debug_aranges
+                0x0000000000000020       0x20 ./src/r_cg_cgc_user.o
+ .debug_aranges
+                0x0000000000000040       0x20 ./src/r_cg_port.o
+ .debug_aranges
+                0x0000000000000060       0x30 ./src/r_cg_timer.o
+ .debug_aranges
+                0x0000000000000090       0x20 ./src/r_cg_timer_user.o
+ .debug_aranges
+                0x00000000000000b0       0x20 ./src/r_cg_vector_table.o
+ .debug_aranges
+                0x00000000000000d0       0x28 ./src/r_hardware_setup.o
+ .debug_aranges
+                0x00000000000000f8       0x38 ./src/r_main.o
+ .debug_aranges
+                0x0000000000000130       0x20 ./src/r_reset_program.o
+
+.debug_ranges   0x0000000000000000       0xb0
+ .debug_ranges  0x0000000000000000       0x10 ./src/r_cg_cgc.o
+ .debug_ranges  0x0000000000000010       0x10 ./src/r_cg_cgc_user.o
+ .debug_ranges  0x0000000000000020       0x10 ./src/r_cg_port.o
+ .debug_ranges  0x0000000000000030       0x20 ./src/r_cg_timer.o
+ .debug_ranges  0x0000000000000050       0x10 ./src/r_cg_timer_user.o
+ .debug_ranges  0x0000000000000060       0x10 ./src/r_cg_vector_table.o
+ .debug_ranges  0x0000000000000070       0x18 ./src/r_hardware_setup.o
+ .debug_ranges  0x0000000000000088       0x28 ./src/r_main.o
+
+.debug_line     0x0000000000000000      0x8b9
+ .debug_line    0x0000000000000000       0xdd ./src/r_cg_cgc.o
+ .debug_line    0x00000000000000dd       0x69 ./src/r_cg_cgc_user.o
+ .debug_line    0x0000000000000146       0xd8 ./src/r_cg_port.o
+ .debug_line    0x000000000000021e      0x197 ./src/r_cg_timer.o
+ .debug_line    0x00000000000003b5       0xa1 ./src/r_cg_timer_user.o
+ .debug_line    0x0000000000000456       0x68 ./src/r_cg_vector_table.o
+ .debug_line    0x00000000000004be       0xca ./src/r_hardware_setup.o
+ .debug_line    0x0000000000000588      0x1cc ./src/r_main.o
+ .debug_line    0x0000000000000754      0x165 ./src/r_reset_program.o
+
+.debug_str      0x0000000000000000      0x422
+ .debug_str     0x0000000000000000      0x1be ./src/r_cg_cgc.o
+                                        0x1ca (size before relaxing)
+ .debug_str     0x00000000000001be       0x40 ./src/r_cg_cgc_user.o
+                                        0x1d5 (size before relaxing)
+ .debug_str     0x00000000000001fe       0x36 ./src/r_cg_port.o
+                                        0x1d8 (size before relaxing)
+ .debug_str     0x0000000000000234       0x87 ./src/r_cg_timer.o
+                                        0x249 (size before relaxing)
+ .debug_str     0x00000000000002bb       0x85 ./src/r_cg_timer_user.o
+                                        0x222 (size before relaxing)
+ .debug_str     0x0000000000000340       0x55 ./src/r_cg_vector_table.o
+                                        0x1fa (size before relaxing)
+ .debug_str     0x0000000000000395       0x35 ./src/r_hardware_setup.o
+                                        0x209 (size before relaxing)
+ .debug_str     0x00000000000003ca       0x58 ./src/r_main.o
+                                        0x270 (size before relaxing)
+
+.comment        0x0000000000000000       0xa0
+ .comment       0x0000000000000000       0xa0 ./src/r_cg_cgc.o
+                                         0xa1 (size before relaxing)
+ .comment       0x0000000000000000       0xa1 ./src/r_cg_cgc_user.o
+ .comment       0x0000000000000000       0xa1 ./src/r_cg_port.o
+ .comment       0x0000000000000000       0xa1 ./src/r_cg_timer.o
+ .comment       0x0000000000000000       0xa1 ./src/r_cg_timer_user.o
+ .comment       0x0000000000000000       0xa1 ./src/r_cg_vector_table.o
+ .comment       0x0000000000000000       0xa1 ./src/r_hardware_setup.o
+ .comment       0x0000000000000000       0xa1 ./src/r_main.o
+
+.debug_loc      0x0000000000000000       0x64
+ .debug_loc     0x0000000000000000       0x64 ./src/r_main.o

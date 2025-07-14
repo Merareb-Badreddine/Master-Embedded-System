@@ -1,0 +1,197 @@
+   1                             	r8	=	0xffef0
+   2                             	r16	=	0xffee8
+   3                             	r24	=	0xffee0
+   4                             	r9	=	0xffef1
+   5                             	r17	=	0xffee9
+   6                             	r25	=	0xffee1
+   7                             	r10	=	0xffef2
+   8                             	r18	=	0xffeea
+   9                             	r26	=	0xffee2
+  10                             	r11	=	0xffef3
+  11                             	r19	=	0xffeeb
+  12                             	r27	=	0xffee3
+  13                             	r12	=	0xffef4
+  14                             	r20	=	0xffeec
+  15                             	r28	=	0xffee4
+  16                             	r13	=	0xffef5
+  17                             	r21	=	0xffeed
+  18                             	r29	=	0xffee5
+  19                             	r14	=	0xffef6
+  20                             	r22	=	0xffeee
+  21                             	r30	=	0xffee6
+  22                             	r15	=	0xffef7
+  23                             	r23	=	0xffeef
+  24                             	r31	=	0xffee7
+  25                             	MACRL	=	0xffff0
+  26                             	MACRH	=	0xffff2
+  27                             	.text
+  28                             	.Ltext0:
+  29                             		.section	.text.r_tau0_channel0_interrupt,"ax",@progbits
+  30                             		.global	_r_tau0_channel0_interrupt
+  32                             	_r_tau0_channel0_interrupt:
+  33                             	.LFB0:
+  34                             		.file 1 "../src/r_cg_timer_user.c"
+   1:../src/r_cg_timer_user.c **** /**************************************************************************************************
+   2:../src/r_cg_timer_user.c **** * DISCLAIMER
+   3:../src/r_cg_timer_user.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
+   4:../src/r_cg_timer_user.c **** * No other uses are authorized. This software is owned by Renesas Electronics Corporation and is pr
+   5:../src/r_cg_timer_user.c **** * applicable laws, including copyright laws. 
+   6:../src/r_cg_timer_user.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING THIS SOFTWARE, WHETHE
+   7:../src/r_cg_timer_user.c **** * OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULA
+   8:../src/r_cg_timer_user.c **** * NON-INFRINGEMENT.  ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.TO THE MAXIMUM EXTENT PERMITTED N
+   9:../src/r_cg_timer_user.c **** * LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE 
+  10:../src/r_cg_timer_user.c **** * INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS SOFTWARE, E
+  11:../src/r_cg_timer_user.c **** * ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  12:../src/r_cg_timer_user.c **** * Renesas reserves the right, without notice, to make changes to this software and to discontinue t
+  13:../src/r_cg_timer_user.c **** * of this software. By using this software, you agree to the additional terms and conditions found 
+  14:../src/r_cg_timer_user.c **** * following link:
+  15:../src/r_cg_timer_user.c **** * http://www.renesas.com/disclaimer
+  16:../src/r_cg_timer_user.c **** *
+  17:../src/r_cg_timer_user.c **** * Copyright (C) 2011, 2024 Renesas Electronics Corporation. All rights reserved.
+  18:../src/r_cg_timer_user.c **** ***************************************************************************************************
+  19:../src/r_cg_timer_user.c **** 
+  20:../src/r_cg_timer_user.c **** /**************************************************************************************************
+  21:../src/r_cg_timer_user.c **** * File Name    : r_cg_timer_user.c
+  22:../src/r_cg_timer_user.c **** * Version      : CodeGenerator for RL78/G14 V2.05.08.02 [03 Jun 2024]
+  23:../src/r_cg_timer_user.c **** * Device(s)    : R5F104GF
+  24:../src/r_cg_timer_user.c **** * Tool-Chain   : GCCRL78
+  25:../src/r_cg_timer_user.c **** * Description  : This file implements device driver for TAU module.
+  26:../src/r_cg_timer_user.c **** * Creation Date: 14/07/2025
+  27:../src/r_cg_timer_user.c **** ***************************************************************************************************
+  28:../src/r_cg_timer_user.c **** 
+  29:../src/r_cg_timer_user.c **** /**************************************************************************************************
+  30:../src/r_cg_timer_user.c **** Includes
+  31:../src/r_cg_timer_user.c **** ***************************************************************************************************
+  32:../src/r_cg_timer_user.c **** #include "r_cg_macrodriver.h"
+  33:../src/r_cg_timer_user.c **** #include "r_cg_timer.h"
+  34:../src/r_cg_timer_user.c **** /* Start user code for include. Do not edit comment generated here */
+  35:../src/r_cg_timer_user.c **** /* End user code. Do not edit comment generated here */
+  36:../src/r_cg_timer_user.c **** #include "r_cg_userdefine.h"
+  37:../src/r_cg_timer_user.c **** 
+  38:../src/r_cg_timer_user.c **** /**************************************************************************************************
+  39:../src/r_cg_timer_user.c **** Global variables and functions
+  40:../src/r_cg_timer_user.c **** ***************************************************************************************************
+  41:../src/r_cg_timer_user.c **** /* Start user code for global. Do not edit comment generated here */
+  42:../src/r_cg_timer_user.c **** /* End user code. Do not edit comment generated here */
+  43:../src/r_cg_timer_user.c **** extern volatile uint16_t step_counter;
+  44:../src/r_cg_timer_user.c **** extern volatile uint8_t  motor_direction;
+  45:../src/r_cg_timer_user.c **** extern volatile int      TOTAL_STEPS_OPEN;
+  46:../src/r_cg_timer_user.c **** extern volatile int      TOTAL_STEPS_CLOSE;
+  47:../src/r_cg_timer_user.c **** extern void set_step(uint8_t step);
+  48:../src/r_cg_timer_user.c **** 
+  49:../src/r_cg_timer_user.c **** /* مقاطعة المؤقت */
+  50:../src/r_cg_timer_user.c **** void r_tau0_channel0_interrupt(void)
+  51:../src/r_cg_timer_user.c **** {
+  35                             		.loc 1 51 0
+  36                             		; start of function
+  37                             		; push 16: ax bc de hl r8 r10 r12 r14
+  38                             		; outgoing: 2 bytes
+  39                             		; uses ES register
+  40 0000 61 CF                   		sel	rb0
+  41 0002 C1                      		push	ax
+  42                             	.LCFI0:
+  43 0003 C3                      		push	bc
+  44                             	.LCFI1:
+  45 0004 C5                      		push	de
+  46                             	.LCFI2:
+  47 0005 C7                      		push	hl
+  48                             	.LCFI3:
+  49 0006 61 DF                   		sel	rb1
+  50 0008 C1                      		push	ax ; r8
+  51                             	.LCFI4:
+  52 0009 C3                      		push	bc ; r10
+  53                             	.LCFI5:
+  54 000a C5                      		push	de ; r12
+  55                             	.LCFI6:
+  56 000b C7                      		push	hl ; r14
+  57                             	.LCFI7:
+  58 000c 61 CF                   		sel	rb0
+  59 000e 8E FD                   		mov	a, es
+  60 0010 C1                      		push	ax
+  61                             	.LCFI8:
+  62 0011 20 02                   		subw	sp, #2
+  63                             	.LCFI9:
+  52:../src/r_cg_timer_user.c ****     if (motor_direction == 1) {
+  64                             		.loc 1 52 0
+  65 0013 40 00 00 01             		cmp	!_motor_direction, #1
+  66 0017 61 E8                   		 skz
+  67 0019 EC 43 00 00             		 br	!!.L2
+  53:../src/r_cg_timer_user.c ****         if (step_counter < TOTAL_STEPS_OPEN) {
+  68                             		.loc 1 53 0
+  69 001d AF 00 00                		movw	ax, !_TOTAL_STEPS_OPEN
+  70 0020 42 00 00                		cmpw	ax, !_step_counter
+  71 0023 61 E3                   		 skh
+  72 0025 EC 3C 00 00             		 br	!!.L3
+  54:../src/r_cg_timer_user.c ****             set_step(step_counter % 4);
+  73                             		.loc 1 54 0
+  74 0029 AF 00 00                		movw	ax, !_step_counter
+  75 002c 60                      		mov	a, x
+  76 002d 5C 03                   		and	a, #3
+  77 002f 98 00                   		mov	[sp], a
+  78 0031 FC 00 00 00             		call	!!%code(_set_step)
+  79                             	.LVL0:
+  55:../src/r_cg_timer_user.c ****             step_counter++;
+  80                             		.loc 1 55 0
+  81 0035 A2 00 00                		incw	!_step_counter
+  82 0038 EC 75 00 00             		br	!!.L1
+  83                             	.L3:
+  56:../src/r_cg_timer_user.c ****         } else {
+  57:../src/r_cg_timer_user.c ****             motor_direction = 0;  //
+  84                             		.loc 1 57 0
+  85 003c F5 00 00                		clrb	!_motor_direction
+  86 003f EC 75 00 00             		br	!!.L1
+  87                             	.L2:
+  58:../src/r_cg_timer_user.c ****         }
+  59:../src/r_cg_timer_user.c ****     }
+  60:../src/r_cg_timer_user.c ****     else if (motor_direction == 2) {
+  88                             		.loc 1 60 0
+  89 0043 40 00 00 02             		cmp	!_motor_direction, #2
+  90 0047 61 E8                   		 skz
+  91 0049 EC 75 00 00             		 br	!!.L1
+  61:../src/r_cg_timer_user.c ****         if (step_counter < TOTAL_STEPS_CLOSE) {
+  92                             		.loc 1 61 0
+  93 004d AF 00 00                		movw	ax, !_TOTAL_STEPS_CLOSE
+  94 0050 42 00 00                		cmpw	ax, !_step_counter
+  95 0053 61 E3                   		 skh
+  96 0055 EC 72 00 00             		 br	!!.L5
+  62:../src/r_cg_timer_user.c ****             set_step(3 - (step_counter % 4));
+  97                             		.loc 1 62 0
+  98 0059 AF 00 00                		movw	ax, !_step_counter
+  99 005c BD F0                   		movw	r8, ax
+ 100 005e 7A F0 FF                		xor	r8, #-1
+ 101 0061 8D F0                   		mov	a, r8
+ 102 0063 5C 03                   		and	a, #3
+ 103 0065 98 00                   		mov	[sp], a
+ 104 0067 FC 00 00 00             		call	!!%code(_set_step)
+ 105                             	.LVL1:
+  63:../src/r_cg_timer_user.c ****             step_counter++;
+ 106                             		.loc 1 63 0
+ 107 006b A2 00 00                		incw	!_step_counter
+ 108 006e EC 75 00 00             		br	!!.L1
+ 109                             	.L5:
+  64:../src/r_cg_timer_user.c ****         } else {
+  65:../src/r_cg_timer_user.c ****             motor_direction = 0;  //
+ 110                             		.loc 1 65 0
+ 111 0072 F5 00 00                		clrb	!_motor_direction
+ 112                             	.L1:
+  66:../src/r_cg_timer_user.c ****         }
+  67:../src/r_cg_timer_user.c ****     }
+  68:../src/r_cg_timer_user.c **** }
+ 113                             		.loc 1 68 0
+ 114 0075 10 02                   		addw	sp, #2
+ 115 0077 C0                      		pop	ax
+ 116 0078 9E FD                   		mov	es, a
+ 117 007a 61 DF                   		sel	rb1
+ 118 007c C6                      		pop	hl ; r14
+ 119 007d C4                      		pop	de ; r12
+ 120 007e C2                      		pop	bc ; r10
+ 121 007f C0                      		pop	ax ; r8
+ 122 0080 61 CF                   		sel	rb0
+ 123 0082 C6                      		pop	hl
+ 124 0083 C4                      		pop	de
+ 125 0084 C2                      		pop	bc
+ 126 0085 C0                      		pop	ax
+ 127 0086 61 FC                   		reti
+ 128                             	.LFE0:
+ 214                             	.Letext0:
+ 215                             		.file 2 "../src/r_cg_macrodriver.h"

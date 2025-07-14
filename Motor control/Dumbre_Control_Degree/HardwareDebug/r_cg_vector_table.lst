@@ -1,0 +1,337 @@
+   1                             	r8	=	0xffef0
+   2                             	r16	=	0xffee8
+   3                             	r24	=	0xffee0
+   4                             	r9	=	0xffef1
+   5                             	r17	=	0xffee9
+   6                             	r25	=	0xffee1
+   7                             	r10	=	0xffef2
+   8                             	r18	=	0xffeea
+   9                             	r26	=	0xffee2
+  10                             	r11	=	0xffef3
+  11                             	r19	=	0xffeeb
+  12                             	r27	=	0xffee3
+  13                             	r12	=	0xffef4
+  14                             	r20	=	0xffeec
+  15                             	r28	=	0xffee4
+  16                             	r13	=	0xffef5
+  17                             	r21	=	0xffeed
+  18                             	r29	=	0xffee5
+  19                             	r14	=	0xffef6
+  20                             	r22	=	0xffeee
+  21                             	r30	=	0xffee6
+  22                             	r15	=	0xffef7
+  23                             	r23	=	0xffeef
+  24                             	r31	=	0xffee7
+  25                             	MACRL	=	0xffff0
+  26                             	MACRH	=	0xffff2
+  27                             	.text
+  28                             	.Ltext0:
+  29                             		.section	.text.R_Dummy,"ax",@progbits
+  30                             		.global	_R_Dummy
+  32                             	_R_Dummy:
+  33                             	.LFB0:
+  34                             		.file 1 "../src/r_cg_vector_table.c"
+   1:../src/r_cg_vector_table.c **** /**************************************************************************************************
+   2:../src/r_cg_vector_table.c **** * DISCLAIMER
+   3:../src/r_cg_vector_table.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
+   4:../src/r_cg_vector_table.c **** * No other uses are authorized. This software is owned by Renesas Electronics Corporation and is pr
+   5:../src/r_cg_vector_table.c **** * applicable laws, including copyright laws. 
+   6:../src/r_cg_vector_table.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING THIS SOFTWARE, WHETHE
+   7:../src/r_cg_vector_table.c **** * OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULA
+   8:../src/r_cg_vector_table.c **** * NON-INFRINGEMENT.  ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.TO THE MAXIMUM EXTENT PERMITTED N
+   9:../src/r_cg_vector_table.c **** * LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE 
+  10:../src/r_cg_vector_table.c **** * INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS SOFTWARE, E
+  11:../src/r_cg_vector_table.c **** * ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  12:../src/r_cg_vector_table.c **** * Renesas reserves the right, without notice, to make changes to this software and to discontinue t
+  13:../src/r_cg_vector_table.c **** * of this software. By using this software, you agree to the additional terms and conditions found 
+  14:../src/r_cg_vector_table.c **** * following link:
+  15:../src/r_cg_vector_table.c **** * http://www.renesas.com/disclaimer
+  16:../src/r_cg_vector_table.c **** *
+  17:../src/r_cg_vector_table.c **** * Copyright (C) 2011, 2024 Renesas Electronics Corporation. All rights reserved.
+  18:../src/r_cg_vector_table.c **** ***************************************************************************************************
+  19:../src/r_cg_vector_table.c **** 
+  20:../src/r_cg_vector_table.c **** /**************************************************************************************************
+  21:../src/r_cg_vector_table.c **** * File Name    : r_cg_vector_table.c
+  22:../src/r_cg_vector_table.c **** * Version      : CodeGenerator for RL78/G14 V2.05.08.02 [03 Jun 2024]
+  23:../src/r_cg_vector_table.c **** * Device(s)    : R5F104GF
+  24:../src/r_cg_vector_table.c **** * Tool-Chain   : GCCRL78
+  25:../src/r_cg_vector_table.c **** * Description  : This file implements interrupt vector.
+  26:../src/r_cg_vector_table.c **** * Creation Date: 14/07/2025
+  27:../src/r_cg_vector_table.c **** ***************************************************************************************************
+  28:../src/r_cg_vector_table.c **** 
+  29:../src/r_cg_vector_table.c **** /**************************************************************************************************
+  30:../src/r_cg_vector_table.c **** Includes
+  31:../src/r_cg_vector_table.c **** ***************************************************************************************************
+  32:../src/r_cg_vector_table.c **** #include "r_cg_macrodriver.h"
+  33:../src/r_cg_vector_table.c **** #include "r_cg_userdefine.h"
+  34:../src/r_cg_vector_table.c **** 
+  35:../src/r_cg_vector_table.c **** /**************************************************************************************************
+  36:../src/r_cg_vector_table.c **** Global variables and functions
+  37:../src/r_cg_vector_table.c **** ***************************************************************************************************
+  38:../src/r_cg_vector_table.c **** /* Set option bytes */
+  39:../src/r_cg_vector_table.c **** #define OPTION_SECT          __attribute__ ((section (".option_bytes")))
+  40:../src/r_cg_vector_table.c **** const uint8_t Option_Bytes[] OPTION_SECT = 
+  41:../src/r_cg_vector_table.c ****     {0xEFU, 0xFFU, 0xF8U, 0x04U};
+  42:../src/r_cg_vector_table.c **** 
+  43:../src/r_cg_vector_table.c **** /* Set security ID */
+  44:../src/r_cg_vector_table.c **** #define SECURITYID_SECT          __attribute__ ((section (".security_id")))
+  45:../src/r_cg_vector_table.c **** const uint8_t Security_Id[] SECURITYID_SECT = 
+  46:../src/r_cg_vector_table.c ****     {0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U};
+  47:../src/r_cg_vector_table.c **** 
+  48:../src/r_cg_vector_table.c **** #define VEC          __attribute__ ((section (".vec")))
+  49:../src/r_cg_vector_table.c **** const void *HardwareVectors[] VEC  = {
+  50:../src/r_cg_vector_table.c **** 	// Address 0x0
+  51:../src/r_cg_vector_table.c **** 	PowerON_Reset,
+  52:../src/r_cg_vector_table.c **** 	// Secure for Debugging
+  53:../src/r_cg_vector_table.c ****     (void*)0xFFFF
+  54:../src/r_cg_vector_table.c **** };
+  55:../src/r_cg_vector_table.c **** 
+  56:../src/r_cg_vector_table.c **** #define VECT_SECT          __attribute__ ((section (".vects")))
+  57:../src/r_cg_vector_table.c **** const void *Vectors[] VECT_SECT  = {
+  58:../src/r_cg_vector_table.c **** 	// Address 0x4
+  59:../src/r_cg_vector_table.c **** 	R_Dummy,
+  60:../src/r_cg_vector_table.c **** 	// Address 0x6
+  61:../src/r_cg_vector_table.c **** 	R_Dummy,
+  62:../src/r_cg_vector_table.c **** 	// Address 0x8
+  63:../src/r_cg_vector_table.c **** 	R_Dummy,
+  64:../src/r_cg_vector_table.c **** 	// Address 0xA
+  65:../src/r_cg_vector_table.c **** 	R_Dummy,
+  66:../src/r_cg_vector_table.c **** 	// Address 0xC
+  67:../src/r_cg_vector_table.c **** 	R_Dummy,
+  68:../src/r_cg_vector_table.c **** 	// Address 0xE
+  69:../src/r_cg_vector_table.c **** 	R_Dummy,
+  70:../src/r_cg_vector_table.c **** 	// Address 0x10
+  71:../src/r_cg_vector_table.c **** 	R_Dummy,
+  72:../src/r_cg_vector_table.c **** 	// Address 0x12
+  73:../src/r_cg_vector_table.c **** 	R_Dummy,
+  74:../src/r_cg_vector_table.c **** 	// Address 0x14
+  75:../src/r_cg_vector_table.c **** 	R_Dummy,
+  76:../src/r_cg_vector_table.c **** 	// Address 0x16
+  77:../src/r_cg_vector_table.c **** 	R_Dummy,
+  78:../src/r_cg_vector_table.c **** 	// Address 0x18
+  79:../src/r_cg_vector_table.c **** 	R_Dummy,
+  80:../src/r_cg_vector_table.c **** 	// Address 0x1A
+  81:../src/r_cg_vector_table.c **** 	R_Dummy,
+  82:../src/r_cg_vector_table.c **** 	// Address 0x1C
+  83:../src/r_cg_vector_table.c **** 	R_Dummy,
+  84:../src/r_cg_vector_table.c **** 	// Address 0x1E
+  85:../src/r_cg_vector_table.c **** 	R_Dummy,
+  86:../src/r_cg_vector_table.c **** 	// Address 0x20
+  87:../src/r_cg_vector_table.c **** 	R_Dummy,
+  88:../src/r_cg_vector_table.c **** 	// Address 0x22
+  89:../src/r_cg_vector_table.c **** 	R_Dummy,
+  90:../src/r_cg_vector_table.c **** 	// Address 0x24
+  91:../src/r_cg_vector_table.c **** 	R_Dummy,
+  92:../src/r_cg_vector_table.c **** 	// Address 0x26
+  93:../src/r_cg_vector_table.c **** 	R_Dummy,
+  94:../src/r_cg_vector_table.c **** 	// Address 0x28
+  95:../src/r_cg_vector_table.c **** 	R_Dummy,
+  96:../src/r_cg_vector_table.c **** 	// Address 0x2A
+  97:../src/r_cg_vector_table.c **** 	R_Dummy,
+  98:../src/r_cg_vector_table.c **** 	// Address 0x2C
+  99:../src/r_cg_vector_table.c **** 	r_tau0_channel0_interrupt,
+ 100:../src/r_cg_vector_table.c **** 	// Address 0x2E
+ 101:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 102:../src/r_cg_vector_table.c **** 	// Address 0x30
+ 103:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 104:../src/r_cg_vector_table.c **** 	// Address 0x32
+ 105:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 106:../src/r_cg_vector_table.c **** 	// Address 0x34
+ 107:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 108:../src/r_cg_vector_table.c **** 	// Address 0x36
+ 109:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 110:../src/r_cg_vector_table.c **** 	// Address 0x38
+ 111:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 112:../src/r_cg_vector_table.c **** 	// Address 0x3A
+ 113:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 114:../src/r_cg_vector_table.c **** 	// Address 0x3C
+ 115:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 116:../src/r_cg_vector_table.c **** 	// Address 0x3E
+ 117:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 118:../src/r_cg_vector_table.c **** 	// Address 0x40
+ 119:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 120:../src/r_cg_vector_table.c **** 	// Address 0x42
+ 121:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 122:../src/r_cg_vector_table.c **** 	// Address 0x44
+ 123:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 124:../src/r_cg_vector_table.c **** 	// Address 0x46
+ 125:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 126:../src/r_cg_vector_table.c **** 	// Address 0x48
+ 127:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 128:../src/r_cg_vector_table.c **** 	// Address 0x4A
+ 129:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 130:../src/r_cg_vector_table.c **** 	// Address 0x4C
+ 131:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 132:../src/r_cg_vector_table.c **** 	// Address 0x4E
+ 133:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 134:../src/r_cg_vector_table.c **** 	// Address 0x50
+ 135:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 136:../src/r_cg_vector_table.c **** 	// Address 0x52
+ 137:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 138:../src/r_cg_vector_table.c **** 	// Address 0x54
+ 139:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 140:../src/r_cg_vector_table.c **** 	// Address 0x56
+ 141:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 142:../src/r_cg_vector_table.c **** 	// Address 0x58
+ 143:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 144:../src/r_cg_vector_table.c **** 	// Address 0x5A
+ 145:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 146:../src/r_cg_vector_table.c **** 	// Address 0x5C
+ 147:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 148:../src/r_cg_vector_table.c **** 	// Address 0x5E
+ 149:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 150:../src/r_cg_vector_table.c **** 	// Address 0x60
+ 151:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 152:../src/r_cg_vector_table.c **** 	// Address 0x62
+ 153:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 154:../src/r_cg_vector_table.c **** 	// Address 0x64
+ 155:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 156:../src/r_cg_vector_table.c **** 	// Address 0x66
+ 157:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 158:../src/r_cg_vector_table.c **** 	// Address 0x68
+ 159:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 160:../src/r_cg_vector_table.c **** 	// Address 0x6A
+ 161:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 162:../src/r_cg_vector_table.c **** 	// Address 0x6C
+ 163:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 164:../src/r_cg_vector_table.c **** 	// Address 0x6E
+ 165:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 166:../src/r_cg_vector_table.c **** 	// Address 0x70
+ 167:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 168:../src/r_cg_vector_table.c **** 	// Address 0x72
+ 169:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 170:../src/r_cg_vector_table.c **** 	// Address 0x74
+ 171:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 172:../src/r_cg_vector_table.c **** 	// Address 0x76
+ 173:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 174:../src/r_cg_vector_table.c **** 	// Address 0x78
+ 175:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 176:../src/r_cg_vector_table.c **** 	// Address 0x7A
+ 177:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 178:../src/r_cg_vector_table.c **** 	// Address 0x7C
+ 179:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 180:../src/r_cg_vector_table.c **** 	// Address 0x7E
+ 181:../src/r_cg_vector_table.c **** 	R_Dummy,
+ 182:../src/r_cg_vector_table.c **** };
+ 183:../src/r_cg_vector_table.c **** /**************************************************************************************************
+ 184:../src/r_cg_vector_table.c **** * Function Name: R_Dummy
+ 185:../src/r_cg_vector_table.c **** * Description  : None
+ 186:../src/r_cg_vector_table.c **** * Arguments    : None
+ 187:../src/r_cg_vector_table.c **** * Return Value : None
+ 188:../src/r_cg_vector_table.c **** ***************************************************************************************************
+ 189:../src/r_cg_vector_table.c **** void R_Dummy(void)
+ 190:../src/r_cg_vector_table.c **** {
+  35                             		.loc 1 190 0
+  36                             		; start of function
+  37                             		; push 8: ax bc de hl
+  38                             		; uses ES register
+  39 0000 61 CF                   		sel	rb0
+  40 0002 C1                      		push	ax
+  41                             	.LCFI0:
+  42 0003 C3                      		push	bc
+  43                             	.LCFI1:
+  44 0004 C5                      		push	de
+  45                             	.LCFI2:
+  46 0005 C7                      		push	hl
+  47                             	.LCFI3:
+  48 0006 8E FD                   		mov	a, es
+  49 0008 C1                      		push	ax
+  50                             	.LCFI4:
+ 191:../src/r_cg_vector_table.c ****     /* Start user code. Do not edit comment generated here */
+ 192:../src/r_cg_vector_table.c ****     /* End user code. Do not edit comment generated here */
+ 193:../src/r_cg_vector_table.c **** }
+  51                             		.loc 1 193 0
+  52 0009 C0                      		pop	ax
+  53 000a 9E FD                   		mov	es, a
+  54 000c C6                      		pop	hl
+  55 000d C4                      		pop	de
+  56 000e C2                      		pop	bc
+  57 000f C0                      		pop	ax
+  58 0010 61 FC                   		reti
+  59                             	.LFE0:
+  61                             		.global	_Vectors
+  62                             		.section	.vects,"aw",@progbits
+  63                             		.balign 2
+  66                             	_Vectors:
+  67 0000 00 00                   		.short	%code(_R_Dummy)
+  68 0002 00 00                   		.short	%code(_R_Dummy)
+  69 0004 00 00                   		.short	%code(_R_Dummy)
+  70 0006 00 00                   		.short	%code(_R_Dummy)
+  71 0008 00 00                   		.short	%code(_R_Dummy)
+  72 000a 00 00                   		.short	%code(_R_Dummy)
+  73 000c 00 00                   		.short	%code(_R_Dummy)
+  74 000e 00 00                   		.short	%code(_R_Dummy)
+  75 0010 00 00                   		.short	%code(_R_Dummy)
+  76 0012 00 00                   		.short	%code(_R_Dummy)
+  77 0014 00 00                   		.short	%code(_R_Dummy)
+  78 0016 00 00                   		.short	%code(_R_Dummy)
+  79 0018 00 00                   		.short	%code(_R_Dummy)
+  80 001a 00 00                   		.short	%code(_R_Dummy)
+  81 001c 00 00                   		.short	%code(_R_Dummy)
+  82 001e 00 00                   		.short	%code(_R_Dummy)
+  83 0020 00 00                   		.short	%code(_R_Dummy)
+  84 0022 00 00                   		.short	%code(_R_Dummy)
+  85 0024 00 00                   		.short	%code(_R_Dummy)
+  86 0026 00 00                   		.short	%code(_R_Dummy)
+  87 0028 00 00                   		.short	%code(_r_tau0_channel0_interrupt)
+  88 002a 00 00                   		.short	%code(_R_Dummy)
+  89 002c 00 00                   		.short	%code(_R_Dummy)
+  90 002e 00 00                   		.short	%code(_R_Dummy)
+  91 0030 00 00                   		.short	%code(_R_Dummy)
+  92 0032 00 00                   		.short	%code(_R_Dummy)
+  93 0034 00 00                   		.short	%code(_R_Dummy)
+  94 0036 00 00                   		.short	%code(_R_Dummy)
+  95 0038 00 00                   		.short	%code(_R_Dummy)
+  96 003a 00 00                   		.short	%code(_R_Dummy)
+  97 003c 00 00                   		.short	%code(_R_Dummy)
+  98 003e 00 00                   		.short	%code(_R_Dummy)
+  99 0040 00 00                   		.short	%code(_R_Dummy)
+ 100 0042 00 00                   		.short	%code(_R_Dummy)
+ 101 0044 00 00                   		.short	%code(_R_Dummy)
+ 102 0046 00 00                   		.short	%code(_R_Dummy)
+ 103 0048 00 00                   		.short	%code(_R_Dummy)
+ 104 004a 00 00                   		.short	%code(_R_Dummy)
+ 105 004c 00 00                   		.short	%code(_R_Dummy)
+ 106 004e 00 00                   		.short	%code(_R_Dummy)
+ 107 0050 00 00                   		.short	%code(_R_Dummy)
+ 108 0052 00 00                   		.short	%code(_R_Dummy)
+ 109 0054 00 00                   		.short	%code(_R_Dummy)
+ 110 0056 00 00                   		.short	%code(_R_Dummy)
+ 111 0058 00 00                   		.short	%code(_R_Dummy)
+ 112 005a 00 00                   		.short	%code(_R_Dummy)
+ 113 005c 00 00                   		.short	%code(_R_Dummy)
+ 114 005e 00 00                   		.short	%code(_R_Dummy)
+ 115 0060 00 00                   		.short	%code(_R_Dummy)
+ 116 0062 00 00                   		.short	%code(_R_Dummy)
+ 117 0064 00 00                   		.short	%code(_R_Dummy)
+ 118 0066 00 00                   		.short	%code(_R_Dummy)
+ 119 0068 00 00                   		.short	%code(_R_Dummy)
+ 120 006a 00 00                   		.short	%code(_R_Dummy)
+ 121 006c 00 00                   		.short	%code(_R_Dummy)
+ 122 006e 00 00                   		.short	%code(_R_Dummy)
+ 123 0070 00 00                   		.short	%code(_R_Dummy)
+ 124 0072 00 00                   		.short	%code(_R_Dummy)
+ 125 0074 00 00                   		.short	%code(_R_Dummy)
+ 126 0076 00 00                   		.short	%code(_R_Dummy)
+ 127 0078 00 00                   		.short	%code(_R_Dummy)
+ 128 007a 00 00                   		.short	%code(_R_Dummy)
+ 129                             		.global	_HardwareVectors
+ 130                             		.section	.vec,"aw",@progbits
+ 131                             		.balign 2
+ 134                             	_HardwareVectors:
+ 135 0000 00 00                   		.short	%code(_PowerON_Reset)
+ 136 0002 FF FF                   		.short	-1
+ 137                             		.global	_Security_Id
+ 138                             		.section	.security_id,"a",@progbits
+ 141                             	_Security_Id:
+ 142 0000 00 00 00 00 00 00 00 00 		.zero	10
+ 142      00 00 
+ 143                             		.global	_Option_Bytes
+ 144                             		.section	.option_bytes,"a",@progbits
+ 147                             	_Option_Bytes:
+ 148 0000 EF                      		.byte	-17
+ 149 0001 FF                      		.byte	-1
+ 150 0002 F8                      		.byte	-8
+ 151 0003 04                      		.byte	4
+ 208                             	.Letext0:
+ 209                             		.file 2 "../src/r_cg_macrodriver.h"
