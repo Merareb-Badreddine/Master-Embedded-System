@@ -4,10 +4,7 @@
  *     Author : Merareb.Badreddine
  */
 
-
-
 #include "FIFO.h"
-
 
 
 FIFO_Buf_s FIFO_Init(FIFO_Buf_t* FIFO_Buf , ELEMENT_TYPE* Buffer , uint32_t Length)
