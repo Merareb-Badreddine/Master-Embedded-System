@@ -1,0 +1,6 @@
+../Src/FIFO.c:13:12:FIFO_Init	3
+../Src/FIFO.c:27:12:FIFO_IsFull	5
+../Src/FIFO.c:37:12:FIFO_IsEmpty	5
+../Src/FIFO.c:47:12:FIFO_EnQueue	6
+../Src/FIFO.c:68:12:FIFO_DeQueue	6
+../Src/FIFO.c:90:6:FIFO_Print	6
