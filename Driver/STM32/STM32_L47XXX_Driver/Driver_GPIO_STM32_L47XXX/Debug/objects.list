@@ -1,0 +1,5 @@
+"./MCAL/GPIO_STM32_STM32_L47XXX_Driver.o"
+"./Src/main.o"
+"./Src/syscalls.o"
+"./Src/sysmem.o"
+"./Startup/startup_stm32l476rgtx.o"

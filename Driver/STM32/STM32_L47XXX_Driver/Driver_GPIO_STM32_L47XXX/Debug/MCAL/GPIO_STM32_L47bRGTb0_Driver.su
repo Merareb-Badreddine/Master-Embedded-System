@@ -1,0 +1,8 @@
+../MCAL/GPIO_STM32_L47bRGTb0_Driver.c:27:16:Get_Position	16	static
+../MCAL/GPIO_STM32_L47bRGTb0_Driver.c:72:6:MCAL_GPIO_Init	32	static
+../MCAL/GPIO_STM32_L47bRGTb0_Driver.c:123:6:MCAL_GPIO_DeInit	16	static
+../MCAL/GPIO_STM32_L47bRGTb0_Driver.c:168:9:MCAL_GPIO_ReadPin	16	static
+../MCAL/GPIO_STM32_L47bRGTb0_Driver.c:181:10:MCAL_GPIO_ReadPort	24	static
+../MCAL/GPIO_STM32_L47bRGTb0_Driver.c:198:6:MCAL_GPIO_WritePin	16	static
+../MCAL/GPIO_STM32_L47bRGTb0_Driver.c:226:6:MCAL_GPIO_WritePort	16	static
+../MCAL/GPIO_STM32_L47bRGTb0_Driver.c:240:6:MCAL_GPIO_TogglePin	16	static
