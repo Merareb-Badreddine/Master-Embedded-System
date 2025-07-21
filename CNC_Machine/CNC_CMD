@@ -1,0 +1,29 @@
+%
+N100 G90 G21 G17 G40 G49 G80       ; Absolute positioning, millimeters, XY plane, cancel cutter compensation, cancel tool length offset, cancel canned cycles
+N110 G54                           ; Select work coordinate system G54
+N120 G00 X0 Y0                     ; Rapid move to the starting point (top-left corner)
+N130 G43 Z5 H1                     ; Apply tool length offset H1 and move to Z5 (safe height)
+N140 M03 S1000                     ; Spindle ON clockwise at 1000 RPM
+N150 G01 Z-5 F100                  ; Feed down to cutting depth Z = -5 mm at 100 mm/min
+N160 G41 D1                        ; Enable tool radius compensation left (cutter left of path), tool D1
+
+; ------------------- Cutting path begins -------------------
+
+N170 G01 X0 Y-10 F200              ; Linear move down along Y by 10 mm
+N180 G03 X10 Y-20 R10              ; Counter-clockwise arc to create R10 corner (bottom-left)
+N190 G01 X85 Y-20                  ; Horizontal linear move to the right
+N200 G02 X95 Y-30 R10              ; Clockwise arc for R10 corner (top-right)
+N210 G01 X95 Y-50                  ; Vertical move down
+N220 G03 X110 Y-65 R15             ; Counter-clockwise arc with R15 (bottom-right corner)
+N230 G01 X110 Y-90                 ; Continue vertical move down
+N240 G03 X100 Y-100 R10            ; Counter-clockwise arc (bottom-left corner)
+N250 G01 X0 Y-100                  ; Move left to close the bottom side
+
+; ------------------- Program end ---------------------------
+
+N260 G40                           ; Cancel tool radius compensation
+N270 G00 Z5                        ; Retract tool to Z5
+N280 G00 X0 Y0                     ; Return to origin
+N290 M05                           ; Spindle OFF
+N300 M30                           ; End of program and rewind
+%
