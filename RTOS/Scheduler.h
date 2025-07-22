@@ -1,10 +1,10 @@
 /*
-Stm32_F103X6.h
+My_Scheduler.h
 Eng Merareb.Badreddine
 */
 
-#ifndef INC_SCHEDULER_H_
-#define INC_SCHEDULER_H_
+#ifndef SCHEDULER_H_
+#define SCHEDULER_H_
 
 #include "Cortex_MX_porting.h"
 
@@ -13,7 +13,6 @@ typedef enum{
 	Ready_Queue_init_error,
 	Task_exceeded_StackSize,
 	MutexisReacedToMaxNumberOfUsers
-
 }MYRTOS_errorID;
 
 
@@ -32,10 +31,10 @@ typedef struct{
 		Waiting,
 		ready
 	}TaskState	;//Not Entered by the user
-struct{
+        struct{
 		enum{
-			Enable,
-			Disable
+		Enable,
+		Disable
 		}Blocking;
 		unsigned int Ticks_Count;
 	}TimingWaiting;
@@ -49,8 +48,6 @@ typedef struct {
 	char 	       MutexName[30];
 } Mutex_ref;
 
-#define element_type Task_ref*
-
 
 //APIs
 MYRTOS_errorID MYRTOS_init();
@@ -62,4 +59,4 @@ void MYRTOS_TaskWait(unsigned int NoTICKS,Task_ref* SelfTref);
 
 MYRTOS_errorID MYRTOS_AcquireMutex(Mutex_ref* Mref , Task_ref* Tref);
 void MYRTOS_ReleaseMutex(Mutex_ref* Mref);
-#endif /* INC_SCHEDULER_H_ */
+#endif /* SCHEDULER_H_ */
