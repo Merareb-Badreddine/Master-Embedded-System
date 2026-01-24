@@ -27,8 +27,10 @@ $(Project_name).bin: $(Project_name).elf
 	$(CC)objcopy.exe -O binary $< $@
 	
 
-clean_all:  
+clean_all:
+@echo Cleaning all..
 	rm *.o *.elf *.bin
 
 clean: 
+@echo Cleaning..
 	rm *.elf *.bin
