@@ -1,4 +1,4 @@
-Merareb_Badreddine
+#Merareb_Badreddine
 
 CC=arm-none-eabi-
 CFLAGS=-mthumb -mcpu=cortex-m3 -gdwarf-2 -g
